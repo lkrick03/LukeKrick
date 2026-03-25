@@ -13,16 +13,14 @@ export default function Landing() {
           <h1 className="hero__title">
             LUKE KRICK
           </h1>
-          <p className="hero__subtitle">
-            Engineer · Researcher · Rocket Enthusiast
-          </p>
+
           <div className="hero__actions">
             <Link to="/projects" className="hero__btn hero__btn--primary">
               View Projects
             </Link>
-            <Link to="/resume" className="hero__btn hero__btn--secondary">
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hero__btn hero__btn--secondary">
               View Resume
-            </Link>
+            </a>
           </div>
         </div>
         <div className="hero__scroll">

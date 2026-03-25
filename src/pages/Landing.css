@@ -85,8 +85,9 @@
 
 .hero__actions {
   display: flex;
+  justify-content: center;
   gap: var(--space-lg);
-  animation: fadeInUp 0.8s ease 2s both;
+  animation: fadeInUp 0.8s ease 1.5s both;
 }
 
 .hero__btn {

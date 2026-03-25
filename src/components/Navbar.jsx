@@ -42,13 +42,25 @@ export default function Navbar() {
 
       <div className={`navbar__links ${menuOpen ? 'open' : ''}`}>
         {links.map((link) => (
-          <Link
-            key={link.to}
-            to={link.to}
-            className={`navbar__link ${location.pathname === link.to ? 'active' : ''}`}
-          >
-            {link.label}
-          </Link>
+          link.to === '/resume' ? (
+            <a
+              key={link.to}
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__link"
+            >
+              {link.label}
+            </a>
+          ) : (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`navbar__link ${location.pathname === link.to ? 'active' : ''}`}
+            >
+              {link.label}
+            </Link>
+          )
         ))}
       </div>
     </nav>

@@ -5,7 +5,6 @@ import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import About from './pages/About';
 import Projects from './pages/Projects';
-import Resume from './pages/Resume';
 import Contact from './pages/Contact';
 import './index.css';
 
@@ -26,7 +25,6 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/resume" element={<Resume />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />

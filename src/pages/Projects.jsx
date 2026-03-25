@@ -18,13 +18,11 @@ export default function Projects() {
       category: 'Solid Propulsion',
       shortDesc: 'Developed a Potassium Nitrate—Sugar (KNSB) solid rocket motor class and designed a robust hot-fire test stand.',
       bgImages: [getProjectImg('p2'), getProjectImg('p3')], // Two photos side by side
-      details: {
-        overview: 'Conducted comprehensive research and practical testing on KNSB solid propellants, aiming to create a reliable, castable motor for student rocketry.',
-        approach: 'Designed a casting process to eliminate voids and improve burn consistency. Simultaneously developed a static test stand using load cells and custom DAQ to measure thrust curves.',
-        problems: 'Propellant cracking during the cooling phase led to unpredictable burn rates and potential over-pressurization.',
-        solutions: 'Optimized the cooling gradient and added sorbitol to the mixture to increase flexibility and reduce brittleness of the cast fuel grains.',
-        results: 'Successfully characterized the thrust profile of the motor, achieving a repeatable specific impulse and confirming the structural integrity of the test stand up to 500 lbf of thrust.'
-      }
+      subProjects: [
+        { title: 'KNSB Sugar Propellant Motor', desc: 'Conducted comprehensive research and practical testing on KNSB solid propellants, aiming to create a reliable, castable motor for student rocketry.' },
+        { title: 'Static Test Stand & DAQ', desc: 'Designed a static test stand using load cells and custom DAQ to measure thrust curves and characterize motor profiles.' },
+        { title: 'Modular Phenolic Casings', desc: '[Placeholder] - Investigating the use of modular phenolic casings for reusable student rocketry applications.' }
+      ]
     },
     {
       id: 2,
@@ -32,13 +30,11 @@ export default function Projects() {
       category: 'Honors Thesis',
       shortDesc: 'Investigating the aerodynamic viability of utilizing grid fins for high-lift applications at low speeds.',
       bgImages: [getProjectImg('p4')], // Classic wide single picture
-      details: {
-        overview: 'An extensive aerodynamics study evaluating whether grid fins, traditionally used for high-speed stabilization, can be optimized for low-speed high-lift requirements.',
-        approach: 'Utilized ANSYS Fluent to run 3D steady-state CFD simulations over varying angles of attack and Mach numbers, comparing lift and drag coefficients against traditional planar fins.',
-        problems: 'High computational cost of resolving the complex boundary layers within the grid fin lattice.',
-        solutions: 'Implemented targeted mesh refinement strategies (poly-hexcore) and employed the k-omega SST turbulence model to balance accuracy and computational efficiency.',
-        results: 'Identified specific geometric configurations where grid fins exhibit delayed stall characteristics compared to planar fins, providing a foundation for future physical wind tunnel testing.'
-      }
+      subProjects: [
+        { title: 'Grid Fins as High Lift Devices', desc: 'Utilized ANSYS Fluent to run 3D steady-state CFD simulations over varying angles of attack, comparing lift and drag coefficients against traditional planar fins.' },
+        { title: 'Poly-Hexcore Mesh Optimization', desc: 'Implemented targeted mesh refinement strategies and employed the k-omega SST turbulence model to balance accuracy.' },
+        { title: 'Wind Tunnel Validation', desc: '[Placeholder] - Future physical wind tunnel testing to validate the CFD aerodynamic stall characteristics.' }
+      ]
     },
     {
       id: 3,
@@ -46,13 +42,11 @@ export default function Projects() {
       category: 'Team Leadership',
       shortDesc: 'Led the engineering team in designing and manufacturing high-power rockets for the NASA USLI and Spaceport America Cup.',
       bgImages: [getProjectImg('p5'), getProjectImg('p6')], // Two photos side by side
-      details: {
-        overview: 'Served as Chief Engineer for the Liberty Rocketry Project, overseeing the full lifecycle from conceptual design to launch and recovery.',
-        approach: 'Implemented rigorous systems engineering practices, organized sub-team workflows (Aerostructures, Propulsion, Avionics), and established regular design reviews.',
-        problems: 'Integration issues between the payload deployment mechanism and the avionics bay under high-G loading.',
-        solutions: 'Redesigned the coupling system using FEA to identify stress concentrations, shifting to a custom-machined aluminum bulkhead that dispersed the load.',
-        results: 'Successfully launched and recovered the vehicle, meeting all competition requirements and scoring highly in the engineering design report category.'
-      }
+      subProjects: [
+        { title: 'NASA USLI Launch Vehicle', desc: 'Served as Chief Engineer overseeing the full lifecycle from conceptual design to launch and recovery.' },
+        { title: 'Spaceport America Cup Payload', desc: 'Organized sub-team workflows and established rigorous systems engineering design reviews.' },
+        { title: 'Avionics Bulkhead Redesign', desc: 'Redesigned the coupling system using FEA to identify stress concentrations, shifting to a custom-machined aluminum bulkhead.' }
+      ]
     }
   ];
 
@@ -93,25 +87,13 @@ export default function Projects() {
             <button className="modal__close" onClick={() => setSelectedProject(null)}>×</button>
             <h2 className="modal__title">{selectedProject.title}</h2>
             
-            <div className="modal__section">
-              <h3>Overview</h3>
-              <p>{selectedProject.details.overview}</p>
-            </div>
-            <div className="modal__section">
-              <h3>Approach</h3>
-              <p>{selectedProject.details.approach}</p>
-            </div>
-            <div className="modal__section">
-              <h3>Problems</h3>
-              <p>{selectedProject.details.problems}</p>
-            </div>
-            <div className="modal__section">
-              <h3>Solutions</h3>
-              <p>{selectedProject.details.solutions}</p>
-            </div>
-            <div className="modal__section">
-              <h3>Results</h3>
-              <p>{selectedProject.details.results}</p>
+            <div className="modal__subprojects-grid">
+              {selectedProject.subProjects.map((sp, idx) => (
+                <div key={idx} className="modal__subproject-card">
+                  <h3>{sp.title}</h3>
+                  <p>{sp.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
