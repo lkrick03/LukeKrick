@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import heroBg from '../assets/hero-bg.png';
+import p1Bg from '../assets/p1.png';
 import './Landing.css';
 
 export default function Landing() {
   return (
     <div className="landing">
       <section className="hero">
-        <img src={heroBg} alt="Rocket Background Placeholder" className="hero__bg" />
+        <img src={p1Bg} alt="Rocket Background Placeholder" className="hero__bg" />
         <div className="hero__content">
           <h1 className="hero__title">
             LUKE KRICK
