@@ -10,7 +10,7 @@
 /* Hero Section */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 85vh; /* Reduced from 100vh to bring up the stats section faster */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@
   object-fit: cover;
   object-position: center bottom; /* Adjust this to handle crop focus (e.g., center center, right top, etc.) */
   z-index: -1;
-  opacity: 0.5; /* Dim photo so the white text pops */
+  opacity: 0.3; /* Deeply dimmed photo so the white text severely pops */
 }
 
 .hero__badge {
