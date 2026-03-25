@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import p2 from '../assets/p2.jpg';
-import p3 from '../assets/p3.jpg';
-import p4 from '../assets/p4.jpg';
-import p5 from '../assets/p5.jpg';
-import p6 from '../assets/p6.jpg';
 import './Projects.css';
+
+// Dynamically grab p2-p6 images regardless of extension (.jpg, .png, etc.)
+const allProjectImages = import.meta.glob('../assets/p*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
+const getProjectImg = (filenameWithoutExt) => {
+  const matchingKey = Object.keys(allProjectImages).find(k => k.match(new RegExp(`/${filenameWithoutExt}\\.(jpg|jpeg|png|webp)$`, 'i')));
+  return matchingKey ? allProjectImages[matchingKey] : '';
+};
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -15,7 +17,7 @@ export default function Projects() {
       title: 'Sugar Propellant & Test Stand',
       category: 'Solid Propulsion',
       shortDesc: 'Developed a Potassium Nitrate—Sugar (KNSB) solid rocket motor class and designed a robust hot-fire test stand.',
-      bgImages: [p2, p3], // Two photos side by side
+      bgImages: [getProjectImg('p2'), getProjectImg('p3')], // Two photos side by side
       details: {
         overview: 'Conducted comprehensive research and practical testing on KNSB solid propellants, aiming to create a reliable, castable motor for student rocketry.',
         approach: 'Designed a casting process to eliminate voids and improve burn consistency. Simultaneously developed a static test stand using load cells and custom DAQ to measure thrust curves.',

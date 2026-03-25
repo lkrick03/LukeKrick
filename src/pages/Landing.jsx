@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import p1Bg from '../assets/p1.jpg';
+// Dynamically grab p1 image regardless of extension (.jpg, .png, etc.)
+const p1Matches = import.meta.glob('../assets/p1.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
+const p1Bg = Object.values(p1Matches)[0] || '';
 import './Landing.css';
 
 export default function Landing() {
