@@ -8,78 +8,87 @@
   padding: var(--space-4xl) var(--space-xl) var(--space-2xl);
   text-align: center;
 }
-
-.projects__label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--color-accent-light);
-  margin-bottom: var(--space-md);
+.project__content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: var(--space-4xl) var(--space-2xl);
+  color: var(--color-text-primary);
 }
 
-.projects__title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
+.project__meta {
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
   letter-spacing: 2px;
-  margin-bottom: var(--space-md);
-}
-
-.projects__subtitle {
-  font-size: 1.05rem;
+  text-transform: uppercase;
   color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.project__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: var(--space-lg);
+  letter-spacing: -1px;
+}
+
+.project__desc {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
   max-width: 600px;
-  margin: 0 auto;
 }
 
-/* Projects Grid */
-.projects__grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-xl) var(--space-4xl);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: var(--space-xl);
+.project__btn {
+  font-family: var(--font-display);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-text-primary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
-/* Modal Overlay */
-.project-modal-overlay {
+.project__btn:hover {
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
+}
+
+/* Modal Styling */
+.modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.95);
   z-index: 2000;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: var(--space-xl);
-  animation: fadeIn 0.3s ease;
 }
 
-.project-modal {
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  max-width: 900px;
-  max-height: 85vh;
-  overflow-y: auto;
+.modal__content {
+  background: var(--color-bg-primary);
+  max-width: 800px;
   width: 100%;
-  padding: var(--space-2xl);
-  position: relative;
-  animation: slideUp 0.4s ease;
-}
-
-.project-modal::-webkit-scrollbar {
-  width: 4px;
-}
-
-.project-modal::-webkit-scrollbar-thumb {
-  background: var(--color-text-muted);
-  border-radius: 2px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .project-modal__close {

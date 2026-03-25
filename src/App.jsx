@@ -2,7 +2,6 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import StarBackground from './components/StarBackground';
 import Landing from './pages/Landing';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -22,7 +21,6 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <StarBackground />
       <Navbar />
       <Routes>
         <Route path="/" element={<Landing />} />

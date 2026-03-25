@@ -1,76 +1,47 @@
 import { Link } from 'react-router-dom';
-import SplitText from '../components/SplitText';
-import CountUp from '../components/CountUp';
+import heroBg from '../assets/hero-bg.png';
 import './Landing.css';
 
 export default function Landing() {
   return (
     <div className="landing">
-      {/* Hero */}
       <section className="hero">
-        <div className="hero__badge">
-          <span>Mechanical Engineering</span>
-        </div>
-
-        <h1 className="hero__name">
-          <SplitText text="Luke Krick" delay={80} />
-        </h1>
-
-        <p className="hero__tagline">
-          Engineer · Researcher · Rocket Enthusiast
-        </p>
-
-        <div className="hero__actions">
-          <Link to="/projects" className="hero__btn hero__btn--primary">
-            View Projects
-          </Link>
-          <Link to="/resume" className="hero__btn hero__btn--secondary">
-            View Resume
-          </Link>
-        </div>
-
-        <div className="hero__scroll">
-          <span>Scroll</span>
-          <div className="hero__scroll-line" />
+        <img src={heroBg} alt="Rocket Background Placeholder" className="hero__bg" />
+        <div className="hero__content">
+          <h1 className="hero__title">
+            LUKE KRICK
+          </h1>
+          <p className="hero__subtitle">
+            Engineer · Researcher · Rocket Enthusiast
+          </p>
+          <div className="hero__cta">
+            <Link to="/projects" className="btn">
+              View Projects
+            </Link>
+            <Link to="/resume" className="btn">
+              View Resume
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Highlights */}
-      <section className="highlights">
-        <div className="highlights__inner">
-          <div className="highlights__header">
-            <p className="highlights__label">At a Glance</p>
-            <h2 className="highlights__title">Engineering by the Numbers</h2>
+      <section className="stats">
+        <div className="stats__inner">
+          <div className="stat__item">
+            <div className="stat__number">3.82</div>
+            <div className="stat__label">GPA</div>
           </div>
-          <div className="highlights__grid">
-            <div className="highlight-card">
-              <div className="highlight-card__icon">🎓</div>
-              <div className="highlight-card__value">
-                <CountUp end={3.82} duration={2000} decimals={2} />
-              </div>
-              <div className="highlight-card__label">GPA</div>
-            </div>
-            <div className="highlight-card">
-              <div className="highlight-card__icon">🚀</div>
-              <div className="highlight-card__value">
-                <CountUp end={3} duration={1500} suffix="+" />
-              </div>
-              <div className="highlight-card__label">Years in Rocketry</div>
-            </div>
-            <div className="highlight-card">
-              <div className="highlight-card__icon">🔬</div>
-              <div className="highlight-card__value">
-                <CountUp end={3} duration={1500} />
-              </div>
-              <div className="highlight-card__label">Research Projects</div>
-            </div>
-            <div className="highlight-card">
-              <div className="highlight-card__icon">💼</div>
-              <div className="highlight-card__value">
-                <CountUp end={2} duration={1500} />
-              </div>
-              <div className="highlight-card__label">Internships</div>
-            </div>
+          <div className="stat__item">
+            <div className="stat__number">3+</div>
+            <div className="stat__label">Years in Rocketry</div>
+          </div>
+          <div className="stat__item">
+            <div className="stat__number">3</div>
+            <div className="stat__label">Research Projects</div>
+          </div>
+          <div className="stat__item">
+            <div className="stat__number">2</div>
+            <div className="stat__label">Internships</div>
           </div>
         </div>
       </section>
