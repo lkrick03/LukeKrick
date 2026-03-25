@@ -16,14 +16,18 @@ export default function Landing() {
           <p className="hero__subtitle">
             Engineer · Researcher · Rocket Enthusiast
           </p>
-          <div className="hero__cta">
-            <Link to="/projects" className="btn">
+          <div className="hero__actions">
+            <Link to="/projects" className="hero__btn hero__btn--primary">
               View Projects
             </Link>
-            <Link to="/resume" className="btn">
+            <Link to="/resume" className="hero__btn hero__btn--secondary">
               View Resume
             </Link>
           </div>
+        </div>
+        <div className="hero__scroll">
+          <span>Scroll</span>
+          <div className="scroll-line"></div>
         </div>
       </section>
 
