@@ -31,7 +31,7 @@ export default function Projects() {
       title: 'Grid Fins as High Lift Devices',
       category: 'Honors Thesis',
       shortDesc: 'Investigating the aerodynamic viability of utilizing grid fins for high-lift applications at low speeds.',
-      bgImages: [p4], // Classic wide single picture
+      bgImages: [getProjectImg('p4')], // Classic wide single picture
       details: {
         overview: 'An extensive aerodynamics study evaluating whether grid fins, traditionally used for high-speed stabilization, can be optimized for low-speed high-lift requirements.',
         approach: 'Utilized ANSYS Fluent to run 3D steady-state CFD simulations over varying angles of attack and Mach numbers, comparing lift and drag coefficients against traditional planar fins.',
@@ -45,7 +45,7 @@ export default function Projects() {
       title: 'Liberty Rocketry Competition',
       category: 'Team Leadership',
       shortDesc: 'Led the engineering team in designing and manufacturing high-power rockets for the NASA USLI and Spaceport America Cup.',
-      bgImages: [p5, p6], // Two photos side by side
+      bgImages: [getProjectImg('p5'), getProjectImg('p6')], // Two photos side by side
       details: {
         overview: 'Served as Chief Engineer for the Liberty Rocketry Project, overseeing the full lifecycle from conceptual design to launch and recovery.',
         approach: 'Implemented rigorous systems engineering practices, organized sub-team workflows (Aerostructures, Propulsion, Avionics), and established regular design reviews.',
