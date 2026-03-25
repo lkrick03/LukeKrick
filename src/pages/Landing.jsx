@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import p1Bg from '../assets/p1.png';
+import p1Bg from '../assets/p1.jpg';
 import './Landing.css';
 
 export default function Landing() {

@@ -20,6 +20,18 @@
   z-index: 1;
 }
 
+.hero__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom; /* Adjust this to handle crop focus (e.g., center center, right top, etc.) */
+  z-index: -1;
+  opacity: 0.5; /* Dim photo so the white text pops */
+}
+
 .hero__badge {
   display: inline-flex;
   align-items: center;
