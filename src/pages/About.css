@@ -1,0 +1,208 @@
+/* ========== ABOUT PAGE ========== */
+.about {
+  position: relative;
+  z-index: 1;
+}
+
+.about__hero {
+  padding: var(--space-4xl) var(--space-xl) var(--space-2xl);
+  text-align: center;
+}
+
+.about__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  margin-bottom: var(--space-md);
+}
+
+.about__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-xl);
+}
+
+.about__bio {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about__bio p {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
+}
+
+.about__bio p strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Skills Section */
+.skills-section {
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.skills-section__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.skills-section__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-md);
+}
+
+.skill-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.skill-chip:hover {
+  border-color: var(--color-accent-light);
+  color: var(--color-text-primary);
+  background: rgba(0, 116, 194, 0.08);
+  transform: translateY(-2px);
+}
+
+.skill-chip__icon {
+  font-size: 1.2rem;
+}
+
+/* Education Section */
+.education-section {
+  padding: var(--space-3xl) var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.education-section__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.education-section__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2xl);
+}
+
+.education-card {
+  padding: var(--space-2xl);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.education-card__school {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.education-card__degree {
+  font-size: 1rem;
+  color: var(--color-accent-light);
+  font-style: italic;
+  margin-bottom: var(--space-sm);
+}
+
+.education-card__details {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.education-card__detail {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.education-card__detail span {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Interests Section */
+.interests-section {
+  padding: var(--space-3xl) var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.interests-section__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.interests-section__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+}
+
+.interest-card {
+  padding: var(--space-xl);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: border-color var(--transition-base), transform var(--transition-base);
+}
+
+.interest-card:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-4px);
+}
+
+.interest-card__icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+}
+
+.interest-card__title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: var(--space-xs);
+}
+
+.interest-card__description {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
