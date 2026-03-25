@@ -27,8 +27,10 @@
 .project__bg-image {
   height: 100%;
   object-fit: cover;
+  object-position: center center; /* Keeps the focal point of the image centered when cropped by the 50% width split */
   opacity: 0.35; /* Darken the image so stark white text is readable */
   transition: opacity 0.5s ease, transform 10s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.05); /* Adds a subtle mechanical separator line between split images */
 }
 
 /* Optional: Slight zoom effect on hover for high-end feel */
