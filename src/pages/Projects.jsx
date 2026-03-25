@@ -54,9 +54,11 @@ export default function Projects() {
 
   return (
     <div className="projects">
-      {projects.map((project) => (
-        <section key={project.id} className="project__section">
-          <img src={project.bgImage} alt={project.title} className="project__bg" />
+      {projects.map((project, index) => (
+        <section key={project.id} className={`project__section ${index % 2 === 0 ? 'project__section--even' : 'project__section--odd'}`}>
+          <div className="project__media">
+            <img src={project.bgImage} alt={project.title} className="project__image" />
+          </div>
           <div className="project__content">
             <span className="project__meta">{project.category}</span>
             <h2 className="project__title">{project.title}</h2>
