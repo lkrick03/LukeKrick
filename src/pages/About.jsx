@@ -3,8 +3,8 @@ import './About.css';
 export default function About() {
   const skills = [
     'SolidWorks', 'ANSYS SpaceClaim', 'ANSYS Fluent', 'PyMechanical',
-    'MATLAB', 'Python', 'Siemens NX', 'GD&T', 'Machining (Mill/Lathe)',
-    'FEA', 'CFD', 'Systems Engineering'
+    'MATLAB', 'Python', 'GD&T',
+    'FEA', 'CFD', 'PDM'
   ];
 
   const focuses = [
@@ -24,7 +24,7 @@ export default function About() {
         <div className="about__section about__section--full">
           <div className="about__intro">
             <p>
-              I am a Mechanical Engineer driven by a relentless curiosity for aerospace systems and the mechanics of flight. 
+              I am a Mechanical Engineer driven by a relentless curiosity for aerospace systems and the mechanics of flight.
               My journey began by watching the precision of SpaceX's grid fins guiding boosters back to Earth—which ultimately inspired my Honors Thesis research.
             </p>
             <p>
@@ -57,8 +57,8 @@ export default function About() {
               <span>May 2025</span>
             </div>
           </div>
-          
-          <div className="focus-card" style={{marginTop: '2rem'}}>
+
+          <div className="focus-card" style={{ marginTop: '2rem' }}>
             <h3>Primary Focus Areas</h3>
             <ul className="focus-list">
               {focuses.map((focus, index) => (

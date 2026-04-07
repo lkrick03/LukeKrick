@@ -17,7 +17,7 @@ export default function Projects() {
       title: 'Industry Work',
       category: 'Professional Work',
       shortDesc: 'Developed a Potassium Nitrate—Sugar (KNSB) solid rocket motor class and designed a robust hot-fire test stand.',
-      bgImages: [getProjectImg('p2')], // Single wide photo
+      bgImages: [getProjectImg('p10')], // Single wide photo
       subProjects: [
         { title: 'BWXT Manufacturing Engineering Intern', desc: 'Conducted comprehensive research and practical testing on KNSB solid propellants, aiming to create a reliable, castable motor for student rocketry.', img: getProjectImg('p2') },
         { title: 'Cyntergy Refrigeration Intern', desc: 'Designed a static test stand using load cells and custom DAQ to measure thrust curves and characterize motor profiles.', img: getProjectImg('p3') }
