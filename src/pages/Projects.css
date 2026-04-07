@@ -304,6 +304,7 @@
   font-size: 1.1rem;
   line-height: 1.7;
   color: rgb(220, 220, 220);
+  white-space: pre-wrap;
 }
 
 @media (max-width: 900px) {

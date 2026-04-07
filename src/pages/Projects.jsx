@@ -16,11 +16,20 @@ export default function Projects() {
       id: 1,
       title: 'Industry Work',
       category: 'Professional Work',
-      shortDesc: 'Developed a Potassium Nitrate—Sugar (KNSB) solid rocket motor class and designed a robust hot-fire test stand.',
+      shortDesc: 'Two Industry Internships With Hands-on Experience',
       bgImages: [getProjectImg('p10')], // Single wide photo
       subProjects: [
-        { title: 'BWXT Manufacturing Engineering Intern', desc: 'Conducted comprehensive research and practical testing on KNSB solid propellants, aiming to create a reliable, castable motor for student rocketry.', img: getProjectImg('p2') },
-        { title: 'Cyntergy Refrigeration Intern', desc: 'Designed a static test stand using load cells and custom DAQ to measure thrust curves and characterize motor profiles.', img: getProjectImg('p3') }
+        { title: 'BWXT Manufacturing Engineering Intern', desc: `• Designed and built support tools for a control rod device, allowing for safe transportation during assembly (SolidWorks)
+• Conducted procedure qualification plans to validate essential assembly techniques, followed quality assurance procedures
+• Used FEA to validate testing procedures to determine part failure (ANSYS Mechanical)
+• Processed test data and wrote reports on the feasibility of the manufacturing and assembly process (Python)
+• Used and evaluated model-based definition programs for use in the manufacturing division (GD&T + PDM)
+• Assisted in reactor assembly, working as FME monitor to maintain reactor integrity during assembly`, img: getProjectImg('p2') },
+        { title: 'Cyntergy Refrigeration Intern', desc: `• Worked with Walmart to understand refrigeration needs and placement requirements (AutoCAD)
+• Calculated loads based on the number of refrigerators being added and Walmart's requirements
+• Used commercial programs to calculate pipe lengths and diameters to ensure correct pipe velocity and to avoid cavitation
+• Planned the piping layout and equipment placements to comply with current stores without overloading existing structures (Revit)
+• Helped integrate ammonium and carbon dioxide refrigerants into Walmart systems to reduce atmospheric degradation`, img: getProjectImg('p3') }
       ]
     },
     {
@@ -42,9 +51,19 @@ export default function Projects() {
       shortDesc: 'Led the engineering team in designing and manufacturing high-power rockets for the International Rocketr Engineering Competition (IREC).',
       bgImages: [getProjectImg('p5')], // Single wide photo
       subProjects: [
-        { title: 'Chief Engineer', desc: 'Served as Chief Engineer overseeing the full lifecycle from conceptual design to launch and recovery.', img: getProjectImg('p5') },
-        { title: 'Assistant Team Lead', desc: 'Organized sub-team workflows and established rigorous systems engineering design reviews.', img: getProjectImg('p6') },
-        { title: 'Nozzle Engineer', desc: 'Started a CFD section of the team to analyze the aerodynamic performance of the rocket.', img: getProjectImg('p7') }
+        { title: 'Chief Engineer', desc: `• Created the vision of the team, setting the goals and objectives to meet competition requirements
+• Held design reviews for the subteams, helping overcome any engineering problems, making sure objectives were met, and designs complied with competition rules and requirements
+• Started a CFD section of the team, created watertight meshes and ran simulations to produce accurate drag data (ANSYS Fluent)
+• Responsible for the altitude simulation systems; altitude error within 3% of 10,000 feet during competition (OpenRocket)
+• Achieved a level 2 rocketry certification from Tripoli, building a high-power rocket with altimeters and a dual-stage separation system`, img: getProjectImg('p5') },
+        { title: 'Assistant Propulsion Team Lead', desc: `• Initiated and assisted in the design of a test stand that was built using steel angle, a load cell, and a commercial data capturing system
+• Created a modular casing that used a phenolic liner, gaskets, and bolted sections to allow for different casing lengths
+• Reviewed and edited mixing procedures for experimental fuel to check for safety and viability issues
+• Manufactured different sections of the propulsion system and oversaw the assembly of the final system into the rocket`, img: getProjectImg('p6') },
+        { title: 'Nozzle Engineer', desc: `• Designed a converging-diverging nozzle for an experimental rocket motor and casing (SolidWorks)
+• Manufactured an initial test stand using aluminum extrusions, a load cell, and an Arduino; test fired small rocket motors for validation of the entire system
+• Developed a script that analyzed different nozzle designs, mitigating the risk of casing over-pressurization (MATLAB)
+• Successfully produced and fired an experimental propellant mixture that used sugar and potassium nitrate instead of standard Ammonium Perchlorate (OpenMotor)`, img: getProjectImg('p7') }
       ]
     }
   ];
