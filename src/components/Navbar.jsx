@@ -45,7 +45,7 @@ export default function Navbar() {
           link.to === '/resume' ? (
             <a
               key={link.to}
-              href="/resume.pdf"
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="navbar__link"
