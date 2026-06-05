@@ -43,8 +43,21 @@ export default function Projects() {
       shortDesc: 'Investigating the aerodynamic viability of utilizing grid fins for high-lift applications at low speeds.',
       bgImages: [getProjectImg('p4')], // Classic wide single picture
       subProjects: [
-        { title: 'Grid Fins as a High Lift Device', desc: 'Utilized ANSYS Fluent to run 3D steady-state CFD simulations over varying angles of attack, comparing lift and drag coefficients against traditional planar fins.', img: getProjectImg('p8') },
-        { title: 'Custom Mixed Solid Rocket Fuel and Test Stand', desc: 'Mixed potassium nitrate and granulated sugar to create a custom solid rocket fuel. Created a custom test stand with an Arduino, amplifier, and load cell to measure thrust and burn time.', img: getProjectImg('p3') },
+        {
+          title: 'Grid Fins as a High Lift Device (Comprehensive)', desc: `•	Researched how grid fins could be used as a high-lift device in aircraft
+        •	Created a structured, quad dominated mesh with grid flap regions that can be activated or deactivated
+        •	Programmed a script to automatically run variable angles of attack on a high-performance computer
+        •	Processed data using a custom script for automatic data and contour exportation (Python and ParaView)
+        •	Wrote a 65-page report on the results of the data along with implications of the research
+`
+          , img: getProjectImg('p8')
+        },
+        {
+          title: 'Custom Mixed Solid Rocket Fuel and Test Stand', desc: `•	Mixed potassium nitrate and granulated sugar to create a custom solid rocket fuel.
+•	Created a custom test stand with an Arduino, amplifier, and load cell to measure thrust and burn time.
+•	Used OpenMotor to create and simulate motor designs to analyse different potential motor mixtures`,
+          img: getProjectImg('p3')
+        },
         {
           title: 'PyMechanical and AI Integration', desc: `•	Did a semester of research on how AI could be incorporated into ANSYS
 •	Studied how generative AI models could decrease meshing time and increase meshing quality in ANSYS mechanical
@@ -77,7 +90,7 @@ export default function Projects() {
           title: 'Nozzle Engineer', desc: `• Designed a converging-diverging nozzle for an experimental rocket motor and casing (SolidWorks)
 • Manufactured an initial test stand using aluminum extrusions, a load cell, and an Arduino; test fired small rocket motors for validation of the entire system
 • Developed a script that analyzed different nozzle designs, mitigating the risk of casing over-pressurization (MATLAB)
-• Successfully produced and fired an experimental propellant mixture that used sugar and potassium nitrate instead of standard Ammonium Perchlorate (OpenMotor)`, img: getProjectImg('p7')
+• Successfully produced and fired an experimental propellant mixture that used sugar and potassium nitrate instead of standard Ammonium Perchlorate (OpenMotor)`, img: getProjectImg('p11')
         }
       ]
     }
