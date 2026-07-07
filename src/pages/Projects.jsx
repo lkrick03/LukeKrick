@@ -14,7 +14,7 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: 'Industry Work',
+      title: 'Personal Projects',
       category: 'Professional Work',
       shortDesc: 'Two Industry Internships With Hands-on Experience',
       bgImages: [getProjectImg('p10')], // Single wide photo
@@ -38,7 +38,7 @@ export default function Projects() {
     },
     {
       id: 2,
-      title: 'Research & Personal Projects',
+      title: 'Research',
       category: 'For the Love of the Game',
       shortDesc: 'Investigating the aerodynamic viability of utilizing grid fins for high-lift applications at low speeds.',
       bgImages: [getProjectImg('p4')], // Classic wide single picture
