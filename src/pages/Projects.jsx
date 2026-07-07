@@ -20,27 +20,25 @@ export default function Projects() {
       bgImages: [getProjectImg('p10')], // Single wide photo
       subProjects: [
         {
-          title: 'BWXT Manufacturing Engineering Intern', desc: `• Designed and built support tools for a control rod device, allowing for safe transportation during assembly (SolidWorks)
-• Conducted procedure qualification plans to validate essential assembly techniques, followed quality assurance procedures
-• Used FEA to validate testing procedures to determine part failure (ANSYS Mechanical)
-• Processed test data and wrote reports on the feasibility of the manufacturing and assembly process (Python)
-• Used and evaluated model-based definition programs for use in the manufacturing division (GD&T + PDM)
-• Assisted in reactor assembly, working as FME monitor to maintain reactor integrity during assembly`, img: getProjectImg('p2')
+          title: 'Thrust Vector Control System (4 Inch Airframe)', desc: `• Designed a mechanical gyro base that uses fully printed components to have two degrees of freedom up to ten degrees
+• Through multiple interations, interchangeable add-ons allow servos to be mounted onto the whole system using heat set inserts and 3mm SCH screws
+• Whole assembly created in SolidWorks utilizing parametric design to account for 3D printing tolerance and design iterations
+• Chose electronic compoents based on mechanical and electircal requriements. Chose servos, batteries, and a buck converter to adequatly power servos.
+• Programmed RP2040 microcontroller in CircuitPython to move servos throughout the range of motion
+• Assembled on breadboard to test the whole system to account for tilting sensors`, img: getProjectImg('p2')
         },
         {
-          title: 'Cyntergy Refrigeration Intern', desc: `• Worked with Walmart to understand refrigeration needs and placement requirements (AutoCAD)
-• Calculated loads based on the number of refrigerators being added and Walmart's requirements
-• Used commercial programs to calculate pipe lengths and diameters to ensure correct pipe velocity and to avoid cavitation
-• Planned the piping layout and equipment placements to comply with current stores without overloading existing structures (Revit)
-• Helped integrate ammonium and carbon dioxide refrigerants into Walmart systems to reduce atmospheric degradation`, img: getProjectImg('p3')
+          title: 'Custom Mixed Solid Rocket Fuel and Test Stand', desc: `• Mixed potassium nitrate and granulated sugar to create a custom solid rocket fuel
+• Created a custom test stand with an Arduino, amplifier, and load cell to measure thrust and burn time.
+• Used OpenMotor to create and simulate motor designs to analyse different potential motor mixtures`, img: getProjectImg('p3')
         }
       ]
     },
     {
       id: 2,
       title: 'Research',
-      category: 'For the Love of the Game',
-      shortDesc: 'Investigating the aerodynamic viability of utilizing grid fins for high-lift applications at low speeds.',
+      category: 'Academic Activity',
+      shortDesc: 'Research done with different professors on a variety of topics',
       bgImages: [getProjectImg('p4')], // Classic wide single picture
       subProjects: [
         {
@@ -53,10 +51,11 @@ export default function Projects() {
           , img: getProjectImg('p8')
         },
         {
-          title: 'Custom Mixed Solid Rocket Fuel and Test Stand', desc: `•	Mixed potassium nitrate and granulated sugar to create a custom solid rocket fuel.
-•	Created a custom test stand with an Arduino, amplifier, and load cell to measure thrust and burn time.
-•	Used OpenMotor to create and simulate motor designs to analyse different potential motor mixtures`,
-          img: getProjectImg('p3')
+          title: 'CFD Analysis of a Solid Rocket Motor Casing with ANSYS Fluent', desc: `•	Researched how temperature is distributed through a rocket liner during a burn
+• Created a high-quality mesh in ANSYS Fluent Meshing
+•	Solved for temperature distributions across the motor using ANSYS Fluent
+•	Authored a ten-page report on the findings and future research`
+          , img: getProjectImg('p3')
         },
         {
           title: 'PyMechanical and AI Integration', desc: `•	Did a semester of research on how AI could be incorporated into ANSYS
