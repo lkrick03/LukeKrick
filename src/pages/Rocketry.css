@@ -1,0 +1,7 @@
+/* Rocketry page shares layout styles from Projects.css */
+@import './Projects.css';
+
+/* 3D Viewer hero section */
+.rocketry-hero {
+  padding-top: var(--navbar-height);
+}

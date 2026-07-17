@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
-import About from './pages/About';
 import Projects from './pages/Projects';
-import Contact from './pages/Contact';
+import Rocketry from './pages/Rocketry';
+import Research from './pages/Research';
 import './index.css';
 
 function ScrollToTop() {
@@ -23,9 +23,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/rocketry" element={<Rocketry />} />
+        <Route path="/research" element={<Research />} />
       </Routes>
       <Footer />
     </Router>
