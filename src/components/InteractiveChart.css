@@ -1,0 +1,137 @@
+.interactive-chart-wrapper {
+  background: rgba(18, 20, 26, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.interactive-chart__header {
+  margin-bottom: 1rem;
+}
+
+.interactive-chart__title {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+  margin: 0 0 0.25rem 0;
+}
+
+.interactive-chart__note {
+  font-size: 0.85rem;
+  color: #ff9800;
+  margin: 0;
+  font-style: italic;
+}
+
+.interactive-chart__container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.interactive-chart__svg {
+  width: 100%;
+  height: auto;
+  min-width: 450px;
+  display: block;
+}
+
+.interactive-chart__grid-line {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-dasharray: 4, 4;
+}
+
+.interactive-chart__axis-text {
+  fill: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-family: monospace;
+}
+
+.interactive-chart__label-text {
+  fill: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.interactive-chart__path {
+  transition: stroke-width 0.2s ease;
+}
+
+.interactive-chart__dot {
+  cursor: pointer;
+  transition: r 0.2s ease, fill 0.2s ease;
+}
+
+.interactive-chart__dot:hover {
+  r: 7;
+}
+
+.interactive-chart__tooltip {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.15s ease-out;
+}
+
+.interactive-chart__tooltip-badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.interactive-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.interactive-chart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.interactive-chart__legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.interactive-chart__legend-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.interactive-chart__placeholder {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  text-align: center;
+  color: #ff9800;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

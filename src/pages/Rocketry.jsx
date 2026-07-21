@@ -1,7 +1,10 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import RocketViewer from '../components/RocketViewer';
+import DeepDiveModal from '../components/DeepDiveModal';
+import { deepDiveData } from '../data/deepDiveData';
 import '../components/RocketViewer.css';
 import './Rocketry.css';
+import './Projects.css'; // Shared experience styles
 
 // Dynamically grab project images regardless of extension (.jpg, .png, etc.)
 const allProjectImages = import.meta.glob('../assets/p*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
@@ -12,6 +15,7 @@ const getProjectImg = (filenameWithoutExt) => {
 
 const sections = [
   {
+    id: 'chief-engineer-rocketry',
     title: 'Chief Engineer',
     img: getProjectImg('p5'),
     bullets: [
@@ -23,6 +27,7 @@ const sections = [
     ],
   },
   {
+    id: 'propulsion-lead-rocketry',
     title: 'Assistant Propulsion Team Lead',
     img: getProjectImg('p6'),
     bullets: [
@@ -33,6 +38,7 @@ const sections = [
     ],
   },
   {
+    id: 'nozzle-engineer-rocketry',
     title: 'Nozzle Engineer',
     img: getProjectImg('p11'),
     bullets: [
@@ -45,6 +51,8 @@ const sections = [
 ];
 
 export default function Rocketry() {
+  const [selectedDeepDiveId, setSelectedDeepDiveId] = useState(null);
+
   return (
     <div className="exp-page">
       {/* 3D Model Hero */}
@@ -91,9 +99,23 @@ export default function Rocketry() {
                 <li key={i}>{bullet}</li>
               ))}
             </ul>
+
+            <button
+              className="deep-dive-trigger-btn"
+              onClick={() => setSelectedDeepDiveId(section.id)}
+            >
+              Explore Engineering Deep-Dive →
+            </button>
           </div>
         </section>
       ))}
+
+      {/* Deep Dive Modal */}
+      <DeepDiveModal
+        isOpen={Boolean(selectedDeepDiveId)}
+        onClose={() => setSelectedDeepDiveId(null)}
+        data={deepDiveData[selectedDeepDiveId]}
+      />
     </div>
   );
 }

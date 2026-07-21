@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import DeepDiveModal from '../components/DeepDiveModal';
+import { deepDiveData } from '../data/deepDiveData';
 import './Projects.css';
 
 // Dynamically grab project images regardless of extension (.jpg, .png, etc.)
@@ -9,6 +12,7 @@ const getProjectImg = (filenameWithoutExt) => {
 
 const sections = [
   {
+    id: 'tvc-system',
     title: 'Thrust Vector Control System',
     subtitle: '4 Inch Airframe',
     img: getProjectImg('p2'),
@@ -22,6 +26,7 @@ const sections = [
     ],
   },
   {
+    id: 'solid-rocket-fuel',
     title: 'Custom Mixed Solid Rocket Fuel and Test Stand',
     img: getProjectImg('p3'),
     bullets: [
@@ -33,6 +38,8 @@ const sections = [
 ];
 
 export default function Projects() {
+  const [selectedDeepDiveId, setSelectedDeepDiveId] = useState(null);
+
   return (
     <div className="exp-page">
       <header className="exp-header">
@@ -60,16 +67,42 @@ export default function Projects() {
             <h2 className="exp-section__title">
               {section.title}
               {section.subtitle && <br />}
-              {section.subtitle && <span style={{ fontSize: '0.6em', fontWeight: 400, letterSpacing: '2px', color: 'var(--color-text-secondary)' }}>{section.subtitle}</span>}
+              {section.subtitle && (
+                <span
+                  style={{
+                    fontSize: '0.6em',
+                    fontWeight: 400,
+                    letterSpacing: '2px',
+                    color: 'var(--color-text-secondary)',
+                  }}
+                >
+                  {section.subtitle}
+                </span>
+              )}
             </h2>
+
             <ul className="exp-section__bullets">
               {section.bullets.map((bullet, i) => (
                 <li key={i}>{bullet}</li>
               ))}
             </ul>
+
+            <button
+              className="deep-dive-trigger-btn"
+              onClick={() => setSelectedDeepDiveId(section.id)}
+            >
+              Explore Engineering Deep-Dive →
+            </button>
           </div>
         </section>
       ))}
+
+      {/* Deep Dive Modal */}
+      <DeepDiveModal
+        isOpen={Boolean(selectedDeepDiveId)}
+        onClose={() => setSelectedDeepDiveId(null)}
+        data={deepDiveData[selectedDeepDiveId]}
+      />
     </div>
   );
 }

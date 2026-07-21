@@ -1,4 +1,8 @@
+import { useState } from 'react';
+import DeepDiveModal from '../components/DeepDiveModal';
+import { deepDiveData } from '../data/deepDiveData';
 import './Research.css';
+import './Projects.css'; // Shared experience styles
 
 // Dynamically grab project images regardless of extension (.jpg, .png, etc.)
 const allProjectImages = import.meta.glob('../assets/p*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
@@ -9,6 +13,7 @@ const getProjectImg = (filenameWithoutExt) => {
 
 const sections = [
   {
+    id: 'grid-fins-thesis',
     title: 'Grid Fins as a High Lift Device',
     subtitle: 'Honors Thesis — Comprehensive',
     img: getProjectImg('p8'),
@@ -21,6 +26,7 @@ const sections = [
     ],
   },
   {
+    id: 'solid-rocket-casing-cfd',
     title: 'CFD Analysis of a Solid Rocket Motor Casing',
     subtitle: 'ANSYS Fluent',
     img: getProjectImg('p3'),
@@ -32,6 +38,7 @@ const sections = [
     ],
   },
   {
+    id: 'pymechanical-ai',
     title: 'PyMechanical and AI Integration',
     img: getProjectImg('p9'),
     bullets: [
@@ -43,6 +50,8 @@ const sections = [
 ];
 
 export default function Research() {
+  const [selectedDeepDiveId, setSelectedDeepDiveId] = useState(null);
+
   return (
     <div className="exp-page">
       <header className="exp-header">
@@ -70,16 +79,41 @@ export default function Research() {
             <h2 className="exp-section__title">
               {section.title}
               {section.subtitle && <br />}
-              {section.subtitle && <span style={{ fontSize: '0.6em', fontWeight: 400, letterSpacing: '2px', color: 'var(--color-text-secondary)' }}>{section.subtitle}</span>}
+              {section.subtitle && (
+                <span
+                  style={{
+                    fontSize: '0.6em',
+                    fontWeight: 400,
+                    letterSpacing: '2px',
+                    color: 'var(--color-text-secondary)',
+                  }}
+                >
+                  {section.subtitle}
+                </span>
+              )}
             </h2>
             <ul className="exp-section__bullets">
               {section.bullets.map((bullet, i) => (
                 <li key={i}>{bullet}</li>
               ))}
             </ul>
+
+            <button
+              className="deep-dive-trigger-btn"
+              onClick={() => setSelectedDeepDiveId(section.id)}
+            >
+              Explore Research Deep-Dive →
+            </button>
           </div>
         </section>
       ))}
+
+      {/* Deep Dive Modal */}
+      <DeepDiveModal
+        isOpen={Boolean(selectedDeepDiveId)}
+        onClose={() => setSelectedDeepDiveId(null)}
+        data={deepDiveData[selectedDeepDiveId]}
+      />
     </div>
   );
 }
