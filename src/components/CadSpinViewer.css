@@ -13,7 +13,7 @@
 .cad-spin-canvas-container {
   width: 100%;
   height: 340px;
-  pointer-events: none; /* Disables all mouse dragging, scrolling, and clicks */
+  pointer-events: none;
   user-select: none;
 }
 

@@ -1,36 +1,56 @@
-import { useRef, useState, useEffect, Suspense } from 'react';
+import { useRef, useMemo, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import './CadSpinViewer.css';
 
-// 3D GLB Model Mesh with continuous auto-rotation and auto-centering
+// 3D GLB Model Mesh with continuous auto-rotation around its true geometric center
 function LoadedGlbModel({ url }) {
   const { scene } = useGLTF(url);
-  const modelRef = useRef();
+  const pivotRef = useRef();
 
+  // Clone scene to isolate modifications
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
+
+  // Compute exact bounding box, center offset, and scaling factor
+  const { scale, offset } = useMemo(() => {
+    clonedScene.position.set(0, 0, 0);
+    clonedScene.rotation.set(0, 0, 0);
+    clonedScene.scale.set(1, 1, 1);
+    clonedScene.updateMatrixWorld(true);
+
+    const box = new THREE.Box3().setFromObject(clonedScene);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const targetScale = maxDim > 0 ? 3.0 / maxDim : 1;
+
+    return {
+      scale: targetScale,
+      offset: [-center.x, -center.y, -center.z],
+    };
+  }, [clonedScene]);
+
+  // Position inner cloned scene so its bounding center aligns with parent pivot (0,0,0)
   useEffect(() => {
-    if (scene) {
-      // Center and scale model
-      const box = new THREE.Box3().setFromObject(scene);
-      const size = box.getSize(new THREE.Vector3());
-      const center = box.getCenter(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = maxDim > 0 ? 3.0 / maxDim : 1;
-
-      scene.scale.setScalar(scale);
-      scene.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+    if (clonedScene) {
+      clonedScene.position.set(offset[0], offset[1], offset[2]);
     }
-  }, [scene]);
+  }, [clonedScene, offset]);
 
+  // Smooth continuous auto-rotation around true center axis
   useFrame((_, delta) => {
-    if (modelRef.current) {
-      // Continuous smooth auto-spin (No user interaction allowed)
-      modelRef.current.rotation.y += delta * 0.8;
+    if (pivotRef.current) {
+      pivotRef.current.rotation.y += delta * 0.7;
     }
   });
 
-  return <primitive ref={modelRef} object={scene} />;
+  return (
+    <group ref={pivotRef} scale={scale}>
+      <primitive object={clonedScene} />
+    </group>
+  );
 }
 
 // Procedural 3D TVC Gimbal CAD Model fallback (spinning 3D wireframe + metallic assembly)
@@ -106,7 +126,7 @@ function ModelLoader({ url }) {
 export default function CadSpinViewer({ modelUrl, fileLocationNote }) {
   return (
     <div className="cad-spin-wrapper">
-      {/* CAD Canvas Container with pointer-events: none to prevent ANY user interaction */}
+      {/* CAD Canvas Container */}
       <div className="cad-spin-canvas-container">
         <Canvas
           camera={{ position: [0, 1.5, 4.0], fov: 45 }}
@@ -114,10 +134,10 @@ export default function CadSpinViewer({ modelUrl, fileLocationNote }) {
           gl={{ antialias: true, alpha: true }}
           style={{ pointerEvents: 'none', background: 'transparent' }}
         >
-          <ambientLight intensity={0.6} />
+          <ambientLight intensity={0.8} />
           <directionalLight position={[5, 8, 5]} intensity={1.5} color="#ffffff" />
-          <directionalLight position={[-5, -4, -5]} intensity={0.4} color="#4da6ff" />
-          <pointLight position={[0, 3, 0]} intensity={0.8} color="#ff9800" />
+          <directionalLight position={[-5, -4, -5]} intensity={0.5} color="#4da6ff" />
+          <pointLight position={[0, 4, 0]} intensity={1.0} color="#ff9800" />
 
           <ModelLoader url={modelUrl} />
         </Canvas>
@@ -125,12 +145,12 @@ export default function CadSpinViewer({ modelUrl, fileLocationNote }) {
 
       <div className="cad-spin-badge">
         <span className="spin-dot" />
-        <span>Auto-Rotating 3D CAD Turntable (Non-Interactive)</span>
+        <span>Auto-Rotating 3D CAD Model</span>
       </div>
 
       {fileLocationNote && (
         <div className="cad-spin-file-info">
-          <span>📁 To load your SolidWorks 3D file (.glb / .gltf), place it in: <code>{fileLocationNote}</code></span>
+          <span>📁 SolidWorks CAD file: <code>{fileLocationNote}</code></span>
         </div>
       )}
     </div>

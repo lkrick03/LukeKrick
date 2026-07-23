@@ -15,7 +15,7 @@ const sections = [
     id: 'tvc-system',
     title: 'Thrust Vector Control System',
     subtitle: '4 Inch Airframe',
-    img: getProjectImg('p2'),
+    img: getProjectImg('p14'),
     bullets: [
       'Designed a mechanical gyro base that uses fully printed components to have two degrees of freedom up to ten degrees',
       'Through multiple iterations, interchangeable add-ons allow servos to be mounted onto the whole system using heat set inserts and 3mm SCH screws',
