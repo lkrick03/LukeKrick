@@ -186,16 +186,14 @@ print("Both servos returned to center ({}°)".format(CENTER))
     category: 'Propulsion & Instrumentation',
 
     overview: `
-      [YOUR OVERVIEW HERE]: Describe your custom propellant mixing, safety protocol, and load cell test stand setup.
-      "Developed an experimental solid propellant formulation utilizing KNO3 and sucrose. Built an instrumented test stand with load cells and an Arduino microcontroller to capture thrust curves and total impulse."
+      Developed an experimental solid propellant formulation utilizing KNO3 and sugar. Built an instrumented test stand with a load cell and an Arduino to capture thrust curves and total impulse."
     `,
 
     specs: [
       { label: 'Propellant Type', value: 'KNO3 + Sugar' },
-      { label: 'Oxidizer/Fuel Ratio', value: '[ADD RATIO, e.g. 65% KNO3 / 35% Sugar]' },
+      { label: 'Oxidizer/Fuel Ratio', value: '65% KNO3 / 35% Sugar' },
       { label: 'Instrumentation', value: 'Load Cell + HX711 Amplifier' },
-      { label: 'Sampling Rate', value: '[ADD SAMPLING RATE, e.g. 80 Hz / 100 Hz]' },
-      { label: 'Simulation Tool', value: 'OpenMotor (Burn rate & pressure modeling)' },
+      { label: 'Simulation Tool', value: 'OpenMotor' },
       { label: 'Measured Parameters', value: 'Thrust (N), Burn Duration (s), Total Impulse (N·s), Used Ardunio Code plus Excel Integration to Collect Data' },
     ],
 
@@ -204,31 +202,36 @@ print("Both servos returned to center ({}°)".format(CENTER))
         chartTitle: 'Static Firing Thrust vs Time Curve',
         xAxisLabel: 'Time (s)',
         yAxisLabel: 'Thrust (N)',
-        note: '[LUKE NOTE]: Replace values below with your actual recorded test stand load cell data.',
+        note: 'Data was compared to the thrust curve of the known motor. ',
         series: [
           {
             name: 'Measured Thrust (N)',
             data: [
               { x: 0.0, y: 0 },
-              { x: 0.2, y: 120 },
-              { x: 0.5, y: 380 },
-              { x: 0.8, y: 440 },
-              { x: 1.2, y: 420 },
-              { x: 1.8, y: 390 },
-              { x: 2.2, y: 210 },
-              { x: 2.5, y: 0 },
-            ],
-          },
-          {
-            name: 'OpenMotor Simulated Thrust (N)',
-            data: [
-              { x: 0.0, y: 0 },
-              { x: 0.2, y: 135 },
-              { x: 0.5, y: 400 },
-              { x: 0.8, y: 450 },
-              { x: 1.2, y: 430 },
-              { x: 1.8, y: 400 },
-              { x: 2.2, y: 200 },
+              { x: 0.1, y: 0.0669 },
+              { x: 0.2, y: 0.2181 },
+              { x: 0.3, y: 1.9935 },
+              { x: 0.4, y: 6.4989 },
+              { x: 0.5, y: 6.544 },
+              { x: 0.6, y: 3.8381 },
+              { x: 0.7, y: 3.2431 },
+              { x: 0.8, y: 3.0149 },
+              { x: 0.9, y: 3.112 },
+              { x: 1.0, y: 3.1664 },
+              { x: 1.1, y: 3.0066 },
+              { x: 1.2, y: 2.9154 },
+              { x: 1.3, y: 2.8464 },
+              { x: 1.4, y: 2.7398 },
+              { x: 1.5, y: 2.6145 },
+              { x: 1.6, y: 2.4834 },
+              { x: 1.7, y: 2.4227 },
+              { x: 1.8, y: 2.3189 },
+              { x: 1.9, y: 2.1448 },
+              { x: 2.0, y: 2.2042 },
+              { x: 2.1, y: 2.1507 },
+              { x: 2.2, y: 1.9812 },
+              { x: 2.3, y: 0.8742 },
+              { x: 2.4, y: 0.1215 },
               { x: 2.5, y: 0 },
             ],
           },
@@ -240,43 +243,67 @@ print("Both servos returned to center ({}°)".format(CENTER))
       {
         filename: 'thrust_data_logger.ino',
         language: 'cpp',
-        description: '[LUKE NOTE]: Paste your Arduino sketch for reading HX711 load cell serial stream.',
+        description: '',
         code: `// Load Cell Serial Data Logger (Arduino + HX711)
-// [LUKE NOTE: REPLACE WITH YOUR EXACT SKETCH]
-
+#include <Arduino.h>
 #include "HX711.h"
 
-#define DOUT  3
-#define CLK   2
+// HX711 circuit wiring
+const int LOADCELL_DOUT_PIN = 2;
+const int LOADCELL_SCK_PIN = 3;
 
 HX711 scale;
-float calibration_factor = 2280.0; // Scale calibration factor
 
 void setup() {
   Serial.begin(115200);
-  scale.begin(DOUT, CLK);
-  scale.set_scale(calibration_factor);
-  scale.tare(); // Reset scale to 0
-  Serial.println("Time_ms,Thrust_N");
+  Serial.println("HX711 Demo");
+  Serial.println("Initializing the scale");
+
+  scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+
+  Serial.println("Before setting up the scale:");
+  Serial.print("read: \t\t");
+  Serial.println(scale.read());      // print a raw reading from the ADC
+
+  Serial.print("read average: \t\t");
+  Serial.println(scale.read_average(1));   // print the average of 20 readings from the ADC
+
+  Serial.print("get value: \t\t");
+  Serial.println(scale.get_value(1));   // print the average of 5 readings from the ADC minus the tare weight (not set yet)
+
+  Serial.print("get units: \t\t");
+  Serial.println(scale.get_units(1), 1);  // print the average of 5 readings from the ADC minus tare weight (not set) divided
+            // by the SCALE parameter (not set yet)
+            
+  scale.set_scale(-459.542);
+  //scale.set_scale(-471.497);                      // this value is obtained by calibrating the scale with known weights; see the README for details
+  scale.tare();               // reset the scale to 0
+
+  Serial.println("After setting up the scale:");
+
+  Serial.print("read: \t\t");
+  Serial.println(scale.read());                 // print a raw reading from the ADC
+
+  
+
+  Serial.println("Readings:");
 }
 
 void loop() {
-  if (scale.is_ready()) {
-    float reading_kg = scale.get_units(1);
-    float thrust_N = reading_kg * 9.81; // Convert to Newtons
-    Serial.print(millis());
-    Serial.print(",");
-    Serial.println(thrust_N, 2);
-  }
+  Serial.print("one reading:\t");
+  Serial.println(scale.get_units());
+  
+
+  delay(1);
 }
 `,
       },
     ],
 
     cadNotes: [
-      '[LUKE NOTE - ADD YOUR DETAILS]: Describe the mechanical construction of the test stand (e.g., steel angle frame, linear bearings).',
-      '[LUKE NOTE - ADD YOUR DETAILS]: Document safety distance, ignition system (e.g., electronic match + relay module).',
-      '[LUKE NOTE - ADD YOUR DETAILS]: Detail OpenMotor core geometry (e.g. BATES grain geometry, core diameter, grain count).',
+      'I used alumnium extursions and hardware to construct a frame for the test stand. Wood was also used as a support for the load cell and motor support.',
+      'To run the test, I used standard rocket ignitors and a ingition switch to light the motor. ',
+      'For data processing, the burn time and thrust values were logged in excel during the burn. Before hand, the load cell was calibrated using a glass of water with a known volume.',
     ],
   },
 
