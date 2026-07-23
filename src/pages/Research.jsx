@@ -15,7 +15,7 @@ const sections = [
   {
     id: 'grid-fins-thesis',
     title: 'Grid Fins as a High Lift Device',
-    subtitle: 'Honors Thesis — Comprehensive',
+    subtitle: 'Honors Thesis',
     img: getProjectImg('p8'),
     bullets: [
       'Researched how grid fins could be used as a high-lift device in aircraft',
@@ -29,7 +29,7 @@ const sections = [
     id: 'solid-rocket-casing-cfd',
     title: 'CFD Analysis of a Solid Rocket Motor Casing',
     subtitle: 'ANSYS Fluent',
-    img: getProjectImg('p3'),
+    img: getProjectImg('p13'),
     bullets: [
       'Researched how temperature is distributed through a rocket liner during a burn',
       'Created a high-quality mesh in ANSYS Fluent Meshing',

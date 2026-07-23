@@ -13,6 +13,13 @@
  * ============================================================================
  */
 
+// Dynamic asset loader for CAD renders and images in src/assets/
+const allAssets = import.meta.glob('../assets/*.{jpg,jpeg,png,webp,svg}', { eager: true, import: 'default' });
+const getAssetImg = (filenameWithoutExt) => {
+  const matchingKey = Object.keys(allAssets).find(k => k.match(new RegExp(`/${filenameWithoutExt}\\.(jpg|jpeg|png|webp|svg)$`, 'i')));
+  return matchingKey ? allAssets[matchingKey] : '';
+};
+
 export const deepDiveData = {
   // --------------------------------------------------------------------------
   // PROJECTS PAGE DEEP DIVES
@@ -21,7 +28,7 @@ export const deepDiveData = {
   'tvc-system': {
     id: 'tvc-system',
     title: 'Thrust Vector Control System',
-    subtitle: '4-Inch Airframe Mechanical Gyro & Gimbal',
+    subtitle: '4-Inch Airframe Mechanical Gimbal',
     category: 'Avionics & Mechanical Design',
 
     /* ----------------------------------------------------------------------
@@ -30,8 +37,7 @@ export const deepDiveData = {
        gimbal mechanism constraints, or control loop response time.
        ---------------------------------------------------------------------- */
     overview: `
-      [YOUR OVERVIEW HERE]: Describe the TVC system architecture. For example:
-      "Designed a 2-DOF TVC gimbal mechanism for a 4-inch airframe rocket. Used dual digital servos driven by an RP2040 microcontroller executing a PID loop based on IMU sensor feedback."
+      "Designed a TVC Gymbal from scratch based off different designs. Based on two cocentric revolving circles, the design uses 3D printed parts along with heated inserts for easy installation. Two servos along with a microcontroller and 9-DOF sensor are used to have complete control of the angle of the motor."
     `,
 
     /* ----------------------------------------------------------------------
@@ -39,87 +45,125 @@ export const deepDiveData = {
        Add or edit specs below (e.g., servo torque, gimbal deflection angle, loop frequency).
        ---------------------------------------------------------------------- */
     specs: [
-      { label: 'Degrees of Freedom', value: '2-DOF (Pitch & Yaw ±10°)' },
-      { label: 'Microcontroller', value: 'Raspberry Pi RP2040 (CircuitPython / C++)' },
-      { label: 'Actuators', value: '[ADD SERVO MODEL, e.g., KST X10 Mini Servos]' },
-      { label: 'Power Supply', value: '[ADD POWER SPECS, e.g., 2S LiPo + 5V 5A Buck Converter]' },
-      { label: 'CAD Platform', value: 'SolidWorks (Parametric Toleranced Model)' },
-      { label: 'Sensors Used', value: '[ADD IMU MODEL, e.g., MPU-6050 / BNO055 9-DOF]' },
+      { label: 'Degrees of Freedom', value: '2-DOF (Pitch & Yaw ±5°)' },
+      { label: 'Microcontroller', value: 'Adafruit RP2040 (CircuitPython)' },
+      { label: 'Actuators', value: 'MG90s' },
+      { label: 'Power Supply', value: '3S LiPo + 5V 3A Buck Converter to Sustain 800 mA Servos' },
+      { label: 'CAD Platform', value: 'SolidWorks (Parametric Inputs for any Airframe Size)' },
+      { label: 'Sensors Used', value: 'Adafruit LIS3MDL + LSM6DSOX' },
     ],
 
     /* ----------------------------------------------------------------------
-       NOTE FOR LUKE: Interactive Chart Data (e.g., Servo Response or Tilt vs Time)
-       Enter data points below. 
-       - xKey: label for X axis (e.g. 'Time (s)' or 'Set Angle (°)')
-       - data: Array of objects with x and y values
-       ---------------------------------------------------------------------- */
-    charts: [
-      {
-        chartTitle: 'Gimbal Angle Deflection vs Sensor Pitch Rate',
-        xAxisLabel: 'Time (seconds)',
-        yAxisLabel: 'Deflection Angle (degrees)',
-        note: '[LUKE NOTE]: Add your gyro test benchmark data here (e.g., target vs actual deflection angle).',
-        series: [
-          {
-            name: 'Target Pitch Angle (°)',
-            data: [
-              { x: 0.0, y: 0.0 },
-              { x: 0.5, y: 2.5 },
-              { x: 1.0, y: 5.0 },
-              { x: 1.5, y: 8.0 },
-              { x: 2.0, y: 5.0 },
-              { x: 2.5, y: 0.0 },
-            ],
-          },
-          {
-            name: 'Measured Servo Gimbal (°)',
-            data: [
-              { x: 0.0, y: 0.1 },
-              { x: 0.5, y: 2.3 },
-              { x: 1.0, y: 4.8 },
-              { x: 1.5, y: 7.9 },
-              { x: 2.0, y: 5.1 },
-              { x: 2.5, y: 0.2 },
-            ],
-          },
-        ],
-      },
-    ],
+       3D CAD MODEL FILE LOCATION FOR TVC SYSTEM
+       ======================================================================
+       INSTRUCTIONS FOR LUKE:
+       To display your custom SolidWorks 3D CAD model:
+       Export your SolidWorks assembly as a .glb or .gltf file and place it in:
+         c:\Users\lukek\OneDrive\Documents\ENGR_PROJ\Website\LukeKrick\public\
+
+       File Name:
+         tvc_cad.glb
+
+       The 3D viewer will auto-spin your CAD model continuously without any 
+       user interaction!
+       ======================================================================
+    ---------------------------------------------------------------------- */
+    cadModelUrl: `${import.meta.env.BASE_URL}tvc_cad.glb`,
+    cadModelFileLocationNote: 'public/tvc_cad.glb',
+    cadImageTitle: 'SolidWorks 2-DOF TVC Gimbal 3D Model',
+
+    charts: [],
 
     /* ----------------------------------------------------------------------
        NOTE FOR LUKE: Code Snippets (Paste your PID loop or Servo code here)
        ---------------------------------------------------------------------- */
     codeSnippets: [
       {
-        filename: 'tvc_control_loop.py',
+        filename: 'servo_test.py',
         language: 'python',
-        description: '[LUKE NOTE]: Paste your CircuitPython or Python code for reading IMU pitch/yaw and translating to servo pulse width output.',
+        description: 'This is the CircuitPython test code that is used to move the each servo individually +- 5 degrees',
         code: `# TVC Control Loop - RP2040 CircuitPython
-# [LUKE NOTE: REPLACE THIS WITH YOUR ACTUAL CODE]
+# 
+
+# Servo Angle Test Script — Moves each servo 5° each direction, one at a time
+# To run: rename this file to code.py (and rename the original code.py first)
 
 import time
 import board
+import digitalio
 import pwmio
 from adafruit_motor import servo
 
-# Initialize Servos for Pitch & Yaw
-servo_pitch = servo.Servo(pwmio.PWMOut(board.GP16, frequency=50), min_pulse=750, max_pulse=2250)
-servo_yaw   = servo.Servo(pwmio.PWMOut(board.GP17, frequency=50), min_pulse=750, max_pulse=2250)
+# --- CONFIG ---
+CENTER = 90
+OFFSET = 20          # degrees to move each direction
+STEP_DELAY = 0.02   # seconds between each 1-degree step
+PAUSE = 0.5         # pause between movements
 
-# PID Coefficients
-Kp = 1.2
-Ki = 0.05
-Kd = 0.3
+# --- INIT ---
+print("=== Servo Angle Test Starting ===")
 
-def update_tvc(pitch_error, yaw_error, dt):
-    # Calculate PID control signal
-    pitch_output = (Kp * pitch_error) + (Kd * (pitch_error / dt))
-    # Clamp output to max gimbal deflection range (+/- 10 degrees)
-    pitch_angle = max(80.0, min(100.0, 90.0 + pitch_output))
-    servo_pitch.angle = pitch_angle
+pwm_pitch = pwmio.PWMOut(board.D5, duty_cycle=0, frequency=50) #where pitch is the bottom servo
+pwm_yaw   = pwmio.PWMOut(board.D6, duty_cycle=0, frequency=50) #where yaw is the top servo
 
-# Main execution loop placeholder
-print("TVC System Initialized. Awaiting IMU feed...")
+servo_pitch = servo.Servo(pwm_pitch, min_pulse=500, max_pulse=2500)
+servo_yaw   = servo.Servo(pwm_yaw,   min_pulse=500, max_pulse=2500)
+
+# Boot button setup (active low with pull-up)
+button = digitalio.DigitalInOut(board.BUTTON)
+button.switch_to_input(pull=digitalio.Pull.UP)
+
+def wait_for_button(prompt):
+    """Wait for the boot button to be pressed and released."""
+    print(prompt)
+    while button.value:        # wait for press (goes LOW)
+        time.sleep(0.01)
+    while not button.value:    # wait for release (goes HIGH)
+        time.sleep(0.01)
+    time.sleep(0.05)           # debounce
+
+# Helper: smooth sweep from current to target
+def sweep(s, name, start, end, delay=STEP_DELAY):
+    step = 1 if end > start else -1
+    for angle in range(int(start), int(end) + step, step):
+        s.angle = angle
+        time.sleep(delay)
+    print(f"  {name} -> {end}°")
+
+# --- Wait for BOOT button to start ---
+wait_for_button("\n>> Press BOOT to start the test sequence")
+
+# --- Pitch servo: +offset then back to center ---
+print("\n[Step 1] PITCH servo (D5): +{}°".format(OFFSET))
+sweep(servo_pitch, "Pitch", CENTER, CENTER + OFFSET)
+time.sleep(PAUSE)
+sweep(servo_pitch, "Pitch", CENTER + OFFSET, CENTER)
+time.sleep(PAUSE)
+
+# --- Pitch servo: -offset then back to center ---
+print("\n[Step 2] PITCH servo (D5): -{}°".format(OFFSET))
+sweep(servo_pitch, "Pitch", CENTER, CENTER - OFFSET)
+time.sleep(PAUSE)
+sweep(servo_pitch, "Pitch", CENTER - OFFSET, CENTER)
+time.sleep(PAUSE)
+
+# --- Yaw servo: +offset then back to center ---
+print("\n[Step 3] YAW servo (D6): +{}°".format(OFFSET))
+sweep(servo_yaw, "Yaw", CENTER, CENTER + OFFSET)
+time.sleep(PAUSE)
+sweep(servo_yaw, "Yaw", CENTER + OFFSET, CENTER)
+time.sleep(PAUSE)
+
+# --- Yaw servo: -offset then back to center ---
+print("\n[Step 4] YAW servo (D6): -{}°".format(OFFSET))
+sweep(servo_yaw, "Yaw", CENTER, CENTER - OFFSET)
+time.sleep(PAUSE)
+sweep(servo_yaw, "Yaw", CENTER - OFFSET, CENTER)
+time.sleep(PAUSE)
+
+# --- Done ---
+print("\n=== Servo Angle Test Complete ===")
+print("Both servos returned to center ({}°)".format(CENTER))
 `,
       },
     ],
@@ -129,9 +173,9 @@ print("TVC System Initialized. Awaiting IMU feed...")
        Add bullet points or description notes for hardware/assembly.
        ---------------------------------------------------------------------- */
     cadNotes: [
-      '[LUKE NOTE - ADD YOUR DETAILS]: List 3D printing parameters (e.g. PETG / ABS, 100% infill for gimbal rings, heat-set inserts size M3).',
-      '[LUKE NOTE - ADD YOUR DETAILS]: Mention tolerance stack-up analysis conducted in SolidWorks for servo linkage arms.',
-      '[LUKE NOTE - ADD YOUR DETAILS]: Describe electrical schematic (breadboard setup vs custom PCB).',
+      'PLA was used for alll 3D printed components. To secure servos and rings together, M3 heat-set inserts were used along with SCHC bolts.',
+      'From expereience, I knew tolerances were going to be a pain when it came to print the design. To help with that, all key design parameters were made using variables that could easily be changed, inclduing one for tolerances. ',
+      'The electronics were the most uncomfortable part of this project. A breadboard was used when wiring all components for testing to help solve any problems that arise. ',
     ],
   },
 
@@ -147,12 +191,12 @@ print("TVC System Initialized. Awaiting IMU feed...")
     `,
 
     specs: [
-      { label: 'Propellant Type', value: 'KNO3 / Sucrose (R-Candy Solid Fuel)' },
+      { label: 'Propellant Type', value: 'KNO3 + Sugar' },
       { label: 'Oxidizer/Fuel Ratio', value: '[ADD RATIO, e.g. 65% KNO3 / 35% Sugar]' },
-      { label: 'Instrumentation', value: '50kg S-Type Load Cell + HX711 Amplifier' },
+      { label: 'Instrumentation', value: 'Load Cell + HX711 Amplifier' },
       { label: 'Sampling Rate', value: '[ADD SAMPLING RATE, e.g. 80 Hz / 100 Hz]' },
       { label: 'Simulation Tool', value: 'OpenMotor (Burn rate & pressure modeling)' },
-      { label: 'Measured Parameters', value: 'Thrust (N), Burn Duration (s), Total Impulse (N·s)' },
+      { label: 'Measured Parameters', value: 'Thrust (N), Burn Duration (s), Total Impulse (N·s), Used Ardunio Code plus Excel Integration to Collect Data' },
     ],
 
     charts: [
@@ -247,46 +291,65 @@ void loop() {
     category: 'Aerodynamics & Computational Fluid Dynamics',
 
     overview: `
-      [YOUR OVERVIEW HERE]: Summarize your thesis research.
-      "Investigated the aerodynamic viability of grid fin configurations functioning as high-lift surfaces for subsonic and transonic flight regimes. Conducted high-resolution CFD grid dependence studies and automated angle-of-attack sweeps on HPC clusters."
+      "Investigated the aerodynamic viability of grid fin configurat"
     `,
 
     specs: [
       { label: 'Thesis Scope', value: '65-Page Comprehensive Honors Thesis' },
-      { label: 'CFD Solver', value: 'ANSYS Fluent (Density-Based / Pressure-Based)' },
-      { label: 'Mesh Topology', value: 'Structured, Quad-Dominated Mesh with Boundary Layer Inflation' },
-      { label: 'Automation Tool', value: 'Python + ParaView Macro Execution Script' },
-      { label: 'HPC Platform', value: 'High-Performance Computing Cluster Automated Parameter Sweeps' },
-      { label: 'Angle of Attack Range', value: '[ADD RANGE, e.g. 0° to 25° AoA]' },
+      { label: 'CFD Solver', value: 'ANSYS Fluent' },
+      { label: 'Mesh Topology', value: 'Custom Structured Quad Dominated Mesh. Over 1.2 millions cells with custom edge sizing controls.' },
+      { label: 'Automation Tool', value: 'Python + ParaView Script' },
+      { label: 'HPC Platform', value: 'High-Performance Computing on a GPU Machine Allowed Hundreds of Runs at Differing Angles of Attack' },
+      { label: 'Angle of Attack Range', value: '-25° to 25° AoA' },
     ],
 
     charts: [
       {
-        chartTitle: 'Coefficient of Lift (CL) and Drag (CD) vs Angle of Attack (α)',
-        xAxisLabel: 'Angle of Attack α (degrees)',
-        yAxisLabel: 'Coefficient (CL / CD)',
-        note: '[LUKE NOTE]: Input data from your 65-page thesis table comparing baseline vs grid fin deployed modes.',
+        chartTitle: 'Aerodynamic Lift Force (N) Comparison: Grid vs. No Grid (α = 5° to 20°)',
+        xAxisLabel: 'Angle of Attack α (°)',
+        yAxisLabel: 'Lift Force (N)',
+        note: 'CFD simulation comparison of With Grid Deployed vs. Baseline No Grid airfoil across AoA 5°–20°.',
         series: [
           {
-            name: 'Lift Coefficient (CL)',
+            name: 'With Grid Deployed',
             data: [
-              { x: 0, y: 0.10 },
-              { x: 5, y: 0.45 },
-              { x: 10, y: 0.85 },
-              { x: 15, y: 1.20 },
-              { x: 20, y: 1.15 },
-              { x: 25, y: 0.95 },
+              { x: 5, y: 78.11 },
+              { x: 6, y: 86.87 },
+              { x: 7, y: 95.36 },
+              { x: 8, y: 103.70 },
+              { x: 9, y: 111.68 },
+              { x: 10, y: 119.20 },
+              { x: 11, y: 126.22 },
+              { x: 12, y: 132.63 },
+              { x: 13, y: 138.07 },
+              { x: 14, y: 132.99 },
+              { x: 15, y: 113.18 },
+              { x: 16, y: 107.01 },
+              { x: 17, y: 106.30 },
+              { x: 18, y: 103.22 },
+              { x: 19, y: 102.57 },
+              { x: 20, y: 103.69 },
             ],
           },
           {
-            name: 'Drag Coefficient (CD)',
+            name: 'Baseline (No Grid)',
             data: [
-              { x: 0, y: 0.05 },
-              { x: 5, y: 0.08 },
-              { x: 10, y: 0.18 },
-              { x: 15, y: 0.35 },
-              { x: 20, y: 0.55 },
-              { x: 25, y: 0.78 },
+              { x: 5, y: 62.83 },
+              { x: 6, y: 71.56 },
+              { x: 7, y: 79.95 },
+              { x: 8, y: 88.08 },
+              { x: 9, y: 95.75 },
+              { x: 10, y: 102.92 },
+              { x: 11, y: 109.57 },
+              { x: 12, y: 115.50 },
+              { x: 13, y: 120.57 },
+              { x: 14, y: 124.56 },
+              { x: 15, y: 126.97 },
+              { x: 16, y: 123.48 },
+              { x: 17, y: 104.81 },
+              { x: 18, y: 83.23 },
+              { x: 19, y: 78.52 },
+              { x: 20, y: 77.49 },
             ],
           },
         ],
@@ -298,26 +361,90 @@ void loop() {
         filename: 'paraview_cfd_export.py',
         language: 'python',
         description: '[LUKE NOTE]: Paste your Python script for ParaView data export or Fluent batch execution.',
-        code: `# Automated CFD Data Processing Script for ParaView
-# [LUKE NOTE: REPLACE WITH YOUR ACTUAL PYTHON SCRIPT]
+        code: `# Automated CFD Data Processing Script 
+; ============================================================
+; ANSYS Fluent Journal File — AoA Sweep (5° to 20°)
+; Velocity magnitude: 24.38 m/s
+; Turbulence: Intensity = 5%, Length Scale = 10
+; ============================================================
 
-import paraview.simple as pv
-import os
+(define base-output-dir "")
 
-def process_cfd_case(file_path, output_dir):
-    print(f"Loading Fluent Case: {file_path}")
-    data = pv.OpenDataFile(file_path)
-    
-    # Generate Pressure & Velocity Slice Views
-    slice1 = pv.Slice(Input=data)
-    slice1.SliceType.Normal = [0.0, 1.0, 0.0] # Y-Plane Slice
-    
-    # Save Contour Plots
-    renderView = pv.GetActiveViewOrCreate('RenderView')
-    pv.SaveScreenshot(os.path.join(output_dir, 'pressure_contour.png'), renderView)
-    print("Contour screenshot saved successfully.")
+; ---- Parameters ----
+(define V_mag 24.38)
+(define aoa_start 5)
+(define aoa_end 20)
+(define aoa_step 5)
 
-# [LUKE NOTE: Add your batch loop over angles of attack here]
+; ---- report file names (from /solve/report-files/list) ----
+(define drag-report-file-name "drag-rfile")  ; 
+(define lift-report-file-name "lift-rfile")  ; 
+
+; ---- Explicit zone lists ----
+(define inlet-list '(""))
+
+; ---- Helpers ----
+(define (deg-to-rad deg) (* deg (/ 3.14159265359 180.0)))
+(define (ensure-directory dir-path)
+  (system (format #f "mkdir \"~a\"" dir-path)))
+
+; ---- Create base output directory ----
+(ensure-directory base-output-dir)
+
+; ---- AoA loop ----
+(do ((aoa aoa_start (+ aoa aoa_step)))
+    ((> aoa aoa_end))
+  
+  (define current-aoa-dir (format #f "~a/AoA_~a" base-output-dir aoa))
+  (ensure-directory current-aoa-dir)
+  
+  (define aoa_rad (deg-to-rad aoa))
+  (define V_x (* V_mag (cos aoa_rad)))
+  (define V_y (* V_mag (sin aoa_rad)))
+  (define V_z 0.0)
+  
+  (display (format #f "~%===== Running AoA = ~a° =====~%" aoa))
+  (display (format #f "Saving results to: ~a~%" current-aoa-dir))
+  (display (format #f "Velocity components: Vx = ~a, Vy = ~a, Vz = ~a~%" V_x V_y V_z))
+  
+  ; ---- Update drag and lift report file paths for this AoA ----
+  (define new-drag-path (format #f "~a/drag_force_AoA_~a.txt" current-aoa-dir aoa))
+  (define new-lift-path (format #f "~a/lift_force_AoA_~a.txt" current-aoa-dir aoa))
+  
+  (display (format #f "Changing drag report path to: ~a~%" new-drag-path))
+  (ti-menu-load-string
+    (format #f "/solve/report-files/edit ~a file-name \"~a\" q~%" 
+            drag-report-file-name new-drag-path))
+  
+  (display (format #f "Changing lift report path to: ~a~%" new-lift-path))
+  (ti-menu-load-string
+    (format #f "/solve/report-files/edit ~a file-name \"~a\" q~%" 
+            lift-report-file-name new-lift-path))
+  
+  ; ---- Apply velocity inlet BCs ----
+  (for-each
+    (lambda (inlet-name)
+      (display (format #f "Applying BC to: ~a~%" inlet-name))
+      (ti-menu-load-string
+        (format #f "/define/boundary-conditions/velocity-inlet ~a no yes yes no 0 yes no ~a no ~a no ~a no no yes 0.05 10~%"
+          inlet-name V_x V_y V_z)))
+    inlet-list)
+  
+  ; ---- Run the solver ----
+  (display "Running 1200 iterations...\n")
+  (ti-menu-load-string "/solve/iterate 1200")
+  
+  ; ---- Save case and data ----
+  (define case-data-name (format #f "4.3.1.4_AoA_~a.cas.h5" aoa))
+  (display (format #f "Saving case and data as: ~a~%" case-data-name))
+  (ti-menu-load-string
+    (format #f "/file/write-case-data ~a/~a yes~%" current-aoa-dir case-data-name))
+  
+  (display (format #f "AoA = ~a° complete!~%~%" aoa)))
+
+(display "~%=== AoA sweep completed successfully ===~%")
+
+; (ti-menu-load-string "/exit yes") ; Uncomment to close Fluent automatically
 `,
       },
     ],
@@ -336,142 +463,161 @@ def process_cfd_case(file_path, output_dir):
     category: 'Thermal & Fluid Mechanics',
 
     overview: `
-      [YOUR OVERVIEW HERE]: Summarize your casing thermal CFD research.
-      "Modeled transient heat transfer through phenolic liners and aluminum/composite motor casings during active propellant burn. Authored a 10-page report detailing temperature gradients and thermal soak times."
+      "Modeled transient heat transfer through a phenolic liner and aluminum motor casing during a propellant burn. Authored a 10-page report detailing temperature gradients."
     `,
 
     specs: [
       { label: 'Report Length', value: '10-Page Research & CFD Report' },
       { label: 'Simulation Software', value: 'ANSYS Fluent & ANSYS Meshing' },
       { label: 'Heat Transfer Mode', value: 'Conduction through Liner + Convection from Gas Stream' },
-      { label: 'Boundary Conditions', value: '[ADD GAS TEMP & PRESSURE, e.g. 2800 K, 4.5 MPa]' },
-      { label: 'Casing Material', value: '[ADD CASING MAT, e.g. 6061-T6 Aluminum / Carbon Composite]' },
-      { label: 'Liner Material', value: 'Phenolic Resin / EPDM Rubber Liner' },
+      { label: 'Boundary Conditions', value: '2000 K, 200 m/s]' },
+      { label: 'Casing Material', value: 'Aluminum' },
+      { label: 'Liner Material', value: 'Phenolic Liner' },
     ],
 
-    charts: [
-      {
-        chartTitle: 'Casing Temperature vs Distance along Motor Axis',
-        xAxisLabel: 'Axial Position (in)',
-        yAxisLabel: 'Temperature (°F)',
-        note: '[LUKE NOTE]: Add temperature profile data points along the motor length.',
-        series: [
-          {
-            name: 'Inner Liner Temperature (°F)',
-            data: [
-              { x: 0, y: 2200 },
-              { x: 2, y: 2400 },
-              { x: 4, y: 2350 },
-              { x: 6, y: 2100 },
-              { x: 8, y: 1800 },
-            ],
-          },
-          {
-            name: 'Outer Casing Wall (°F)',
-            data: [
-              { x: 0, y: 110 },
-              { x: 2, y: 145 },
-              { x: 4, y: 160 },
-              { x: 6, y: 135 },
-              { x: 8, y: 115 },
-            ],
-          },
-        ],
-      },
-    ],
+    image: getAssetImg('p12'),
+    imageTitle: 'Solid Rocket Motor Casing CFD Thermal Visual',
+    imageCaption: 'ANSYS Fluent Steady-State thermal simulation contour showing temperature gradients across the phenolic liner and aluminum motor casing.',
+    imageFileLocationNote: 'To replace this image, place your image in src/assets/ and update getAssetImg() in deepDiveData.js.',
+
+    charts: [],
 
     codeSnippets: [
       {
         filename: 'thermal_properties.jou',
-        language: 'bash',
-        description: '[LUKE NOTE]: Paste your ANSYS Fluent journal script or UDF (User Defined Function) for temperature dependent properties.',
-        code: `; ANSYS Fluent Journal Script for Transient Thermal Analysis
-; [LUKE NOTE: REPLACE WITH YOUR ACTUAL JOURNAL SCRIPT]
-
-/file/read-case-data "rocket_casing.cas.h5"
-/define/models/unsteady-1st-order? yes
-/solve/set/time-step 0.05
-/solve/dual-time-iterate 70 20
-
-/plot/write-to-file "temperature_profile.txt"
+        language: 'MATLAB',
+        description: 'Matlab Script',
+        code: `%Defining Variables
+T1 = 293;
+T2 = 2000;
+u = 200;
+D = .5; %meters
+L = .701;
+As = pi * D * L;
+g = 9.81;
+Ts = T1;
+Tinf = T2;
+Tm = 293;
+r1 = .035;
+r2 = .0375;
+r3 = .045;
+%Properties of Air (1200)
+format bank
+Tf = (T1 + T2) / 2;
+visc = 162.9e-6;
+B = 1 / Tf;
+Pr = .728;
+k = 76.3e-3;
+%Properties of Liner
+k1 = .205;
+k2 = .205;
+%Calcuating Non-Dimensionlized Numbers for flow case
+Re = u * D / visc %Reynolds Number
+Gr = g * B * (Tinf - Ts) * D^3 / (visc^2) %Grashoff Number
+F = Re / (Gr^2)
+%Thermal Considerations
+Nu = .023 * Pr^.2 * Re^(4/5);
+h = Nu * k / D;
+q = h * As * (Tinf - Tm);
+%Resistance Considerations
+R1 = 1 / (h * As);
+R2 = log(r2 / r1) / (2*pi*L*k1);
+R3 = log(r3 / r2) / (2*pi*L*k2);
+RT = R1 + R2 + R3;
+%Heat Rate
+q = (Tinf - T1) / RT
 `,
       },
     ],
 
     cadNotes: [
-      '[LUKE NOTE - ADD YOUR DETAILS]: Explain liner erosion assumptions or thermal conductivity values used in ANSYS.',
-      '[LUKE NOTE - ADD YOUR DETAILS]: Document safety margins before material yield limit was reached.',
+      'The simulations were successful in replicating the heat transfer in a solid rocket engine.',
+      'It was learned that the thickness of the liner in the current solid rocket motors effectively resist the heat transfer to the alumnium casing.',
+      'For further work, simulations can be performed looking at the erosion along the liner. This can optimize the thickness of the liner.'
     ],
   },
 
   'pymechanical-ai': {
     id: 'pymechanical-ai',
     title: 'PyMechanical and AI Integration',
-    subtitle: 'Automated ANSYS Simulation Workflows via Python & Generative AI',
+    subtitle: 'Automated ANSYS Simulation Workflows via PyMechanical & Generative AI',
     category: 'Automation & Computational Modeling',
 
     overview: `
-      [YOUR OVERVIEW HERE]: Summarize your AI + PyMechanical research.
-      "Investigated integration of Python scripting (PyMechanical API) with Generative AI to automate mesh generation, boundary condition setup, and post-processing evaluation in ANSYS Mechanical."
+      "Investigated integration of Python scripting (PyMechanical API) with Generative AI models (Copilot, ChatGPT, Grok) to evaluate meshing parameters, simulation stress values, and percentage error compared to analytical calculations."
     `,
 
     specs: [
-      { label: 'API Framework', value: 'PyMechanical (Ansys Python Developer Community)' },
-      { label: 'Primary Goal', value: 'Mesh Optimization & Execution Automation' },
-      { label: 'AI Model Integration', value: 'LLM Prompt Engineering to PyMechanical Syntax' },
-      { label: 'Time Reduction', value: '[ADD PERCENTAGE, e.g. 40% mesh setup time reduction]' },
+      { label: 'API Framework', value: 'PyMechanical (Ansys Python API)' },
+      { label: 'AI Models Benchmarked', value: 'GitHub Copilot, ChatGPT, Grok' },
+      { label: 'Primary Goal', value: 'Mesh Optimization & Stress Accuracy' },
+      { label: 'Calculated Stress Target', value: '49.35 PSI' },
     ],
 
-    charts: [
+    tables: [
       {
-        chartTitle: 'Mesh Quality Score vs Execution Iteration',
-        xAxisLabel: 'Iteration Index',
-        yAxisLabel: 'Orthogonal Quality Index (0-1)',
-        note: '[LUKE NOTE]: Add iteration benchmark data showing mesh improvement.',
-        series: [
-          {
-            name: 'AI-Guided Script Mesh Quality',
-            data: [
-              { x: 1, y: 0.52 },
-              { x: 2, y: 0.68 },
-              { x: 3, y: 0.79 },
-              { x: 4, y: 0.88 },
-              { x: 5, y: 0.93 },
-            ],
-          },
+        model: 'Copilot',
+        badgeColor: '#facc15',
+        headers: [
+          'Global Element Size',
+          'Resolution',
+          'Face Sizing (Support) (in)',
+          'Face Sizing (Load) (in)',
+          'Simulation (PSI)',
+          'Calculated (PSI)',
+          'Percent Error %',
+        ],
+        rows: [
+          ['0.5', '4', '0.25', '0.5', '39.146', '49.35', '20.68%'],
+          ['0.35', '5', '0.15', '0.5', '41.374', '49.35', '16.16%'],
+          ['0.25', '6', '0.1', '0.5', '42.994', '49.35', '12.88%'],
+        ],
+      },
+      {
+        model: 'ChatGPT',
+        badgeColor: '#f97316',
+        headers: [
+          'Global Element Size',
+          'Resolution',
+          'Face Sizing (Support) (in)',
+          'Face Sizing (Load) (in)',
+          'Simulation (PSI)',
+          'Calculated (PSI)',
+          'Percent Error %',
+        ],
+        rows: [
+          ['0.25', '4', '0.0625', '0.125', '49.017', '49.35', '0.67%'],
+          ['0.2', '5', '0.05', '0.1', '52.035', '49.35', '-5.44%'],
+          ['0.2', '4', '0.075', '0.1', '52.035', '49.35', '-5.44%'],
+        ],
+      },
+      {
+        model: 'Grok',
+        badgeColor: '#38bdf8',
+        headers: [
+          'Global Element Size',
+          'Resolution',
+          'Face Sizing (Support) (in)',
+          'Face Sizing (Load) (in)',
+          'Simulation (PSI)',
+          'Calculated (PSI)',
+          'Percent Error %',
+        ],
+        rows: [
+          ['0.5', '5', '0.1', '0.2', '40.547', '49.35', '17.84%'],
+          ['0.5', '7', '0.05', '0.1', '39.898', '49.35', '19.15%'],
+          ['0.5', '8', '0.025', '0.1', '39.898', '49.35', '19.15%'],
         ],
       },
     ],
 
-    codeSnippets: [
-      {
-        filename: 'pymechanical_mesh_opt.py',
-        language: 'python',
-        description: '[LUKE NOTE]: Paste your PyMechanical script snippet connecting python to ANSYS Mechanical.',
-        code: `# PyMechanical ANSYS Automation Snippet
-# [LUKE NOTE: REPLACE WITH YOUR ACTUAL SCRIPT]
-
-import ansys.mechanical.core as pymechanical
-
-# Connect to PyMechanical Instance
-mechanical = pymechanical.launch_mechanical(batch=True)
-print("Connected to ANSYS Mechanical Instance.")
-
-# Add mesh refinement controls programmatically
-script = """
-mesh = ExtAPI.DataModel.Project.Model.Mesh
-mesh.ElementSize = Quantity("2.0 [mm]")
-mesh.GenerateMesh()
-"""
-mechanical.run_python_script(script)
-print("Mesh generated automatically.")
-`,
-      },
-    ],
+    charts: [],
+    codeSnippets: [],
 
     cadNotes: [
-      '[LUKE NOTE - ADD YOUR DETAILS]: Document setup steps for configuring PyMechanical environment.',
-      '[LUKE NOTE - ADD YOUR DETAILS]: Explain key prompt templates used for generating valid PyMechanical Python syntax.',
+      'ChatGPT achieved the highest mesh accuracy with a minimum percent error of 0.67% (49.017 PSI vs calculated 49.35 PSI).',
+      'Copilot showed steady convergence as resolution increased from 4 to 6 (error decreased from 20.68% down to 12.88%).',
+      'Grok produced consistent simulation stress values (~39.9 PSI to 40.5 PSI) across high resolutions (5-8), yielding an error range around 17.8% - 19.15%.',
     ],
   },
 
