@@ -15,14 +15,23 @@ const sections = [
   {
     id: 'grid-fins-thesis',
     title: 'Grid Fins as a High Lift Device',
-    subtitle: 'Honors Thesis',
+    subtitle: 'Senior Honors Thesis — Liberty University',
+    featured: true,
+    pdfUrl: `${import.meta.env.BASE_URL}LK_Final_Thesis_Draft.pdf`,
     img: getProjectImg('p8'),
+    metrics: [
+      '📄 71-Page Senior Honors Thesis',
+      '🕸️ 1.2M+ Quad Mesh Cells (y+ < 3)',
+      '⚡ Soft Post-Stall Drop (1.35 → 1.15)',
+      '🖥️ "Totoro" HPC Cluster Automated',
+    ],
     bullets: [
-      'Researched how grid fins could be used as a high-lift device in aircraft',
-      'Created a structured, quad dominated mesh with grid flap regions that can be activated or deactivated',
-      'Programmed a script to automatically run variable angles of attack on a high-performance computer',
-      'Processed data using a custom script for automatic data and contour exportation (Python and ParaView)',
-      'Wrote a 65-page report on the results of the data along with implications of the research',
+      'Researched how grid fins could be used as a high-lift device (flap) integrated with a NACA 2414 airfoil',
+      'Created a structured, quad-dominated mesh with over 1.2 million cells and boundary layer y+ < 3 for k-omega SST modeling',
+      'Programmed ANSYS Fluent Scheme journal scripts to automatically run angle-of-attack sweeps on an HPC cluster ("Totoro")',
+      'Built a custom Python data pipeline to process 10,000-iteration force files using a sliding-window Coefficient of Variance (COV) algorithm',
+      'Discovered that grid flaps cause earlier separation (~14° AoA) but cushion post-stall lift loss (retaining 85% peak lift) with a rising post-stall efficiency curve',
+      'Authored a comprehensive 71-page Senior Honors Thesis detailing CFD methodologies, turbulence model comparisons, and post-stall aerodynamics',
     ],
   },
   {
@@ -62,7 +71,9 @@ export default function Research() {
       {sections.map((section, idx) => (
         <section
           key={idx}
-          className={`exp-section ${idx % 2 !== 0 ? 'exp-section--reverse' : ''}`}
+          className={`exp-section ${section.featured ? 'exp-section--featured' : ''} ${
+            idx % 2 !== 0 ? 'exp-section--reverse' : ''
+          }`}
         >
           <div className="exp-section__image">
             {section.img && (
@@ -72,10 +83,22 @@ export default function Research() {
                 className="exp-section__img"
               />
             )}
+            {section.featured && (
+              <div className="featured-thesis-overlay-badge">
+                ★ FEATURED HONORS THESIS
+              </div>
+            )}
           </div>
 
           <div className="exp-section__text">
-            <span className="exp-section__number">0{idx + 1}</span>
+            {section.featured ? (
+              <div className="featured-badge-pill">
+                🏆 SENIOR HONORS THESIS (71 PAGES)
+              </div>
+            ) : (
+              <span className="exp-section__number">0{idx + 1}</span>
+            )}
+
             <h2 className="exp-section__title">
               {section.title}
               {section.subtitle && <br />}
@@ -92,18 +115,51 @@ export default function Research() {
                 </span>
               )}
             </h2>
+
+            {/* Featured Metrics Row */}
+            {section.metrics && (
+              <div className="thesis-metrics-grid">
+                {section.metrics.map((metric, mIdx) => (
+                  <span key={mIdx} className="thesis-metric-chip">
+                    {metric}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <ul className="exp-section__bullets">
               {section.bullets.map((bullet, i) => (
                 <li key={i}>{bullet}</li>
               ))}
             </ul>
 
-            <button
-              className="deep-dive-trigger-btn"
-              onClick={() => setSelectedDeepDiveId(section.id)}
-            >
-              Explore Research Deep-Dive →
-            </button>
+            <div className="exp-section__actions" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '1.75rem' }}>
+              <button
+                className="deep-dive-trigger-btn"
+                onClick={() => setSelectedDeepDiveId(section.id)}
+                style={{ margin: 0 }}
+              >
+                Explore Research Deep-Dive →
+              </button>
+
+              {section.pdfUrl && (
+                <a
+                  href={section.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="deep-dive-trigger-btn thesis-pdf-action-btn"
+                  style={{
+                    margin: 0,
+                    background: 'rgba(255, 77, 77, 0.15)',
+                    borderColor: '#ff4d4d',
+                    color: '#ffffff',
+                    textDecoration: 'none',
+                  }}
+                >
+                  📄 Read 71-Page Thesis (PDF)
+                </a>
+              )}
+            </div>
           </div>
         </section>
       ))}

@@ -49,6 +49,9 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
     imageCaption,
     imageFileLocationNote,
     tables,
+    pdfUrl,
+    pdfTitle,
+    mediaGallery,
   } = data;
 
   const hasCadModel = Boolean(cadModelUrl || cadImage || cadFileLocationNote || cadModelFileLocationNote);
@@ -56,6 +59,7 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
   const hasImage = Boolean(image);
   const hasTables = Boolean(tables && tables.length > 0);
   const hasCodeSnippets = Boolean(codeSnippets && codeSnippets.length > 0);
+  const hasMediaGallery = Boolean(mediaGallery && mediaGallery.length > 0);
 
   return (
     <div className="deep-dive-overlay" onClick={onClose}>
@@ -71,9 +75,36 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
             {subtitle && <h4 className="deep-dive-subtitle">{subtitle}</h4>}
           </div>
 
-          <button className="deep-dive-close" onClick={onClose} aria-label="Close modal">
-            ✕
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {pdfUrl && (
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="deep-dive-pdf-btn"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: '#ff4d4d',
+                  color: '#ffffff',
+                  padding: '6px 14px',
+                  borderRadius: '6px',
+                  fontSize: '0.82rem',
+                  fontWeight: '600',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 12px rgba(255,77,77,0.3)',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                📄 {pdfTitle || 'Read Full Thesis (PDF)'}
+              </a>
+            )}
+            <button className="deep-dive-close" onClick={onClose} aria-label="Close modal">
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* Overview Banner */}
@@ -187,6 +218,78 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
                       📁 {imageFileLocationNote}
                     </div>
                   )}
+                </div>
+              </div>
+            )}
+
+            {/* Media Gallery / Animations & Screenshots */}
+            {hasMediaGallery && (
+              <div style={{ marginTop: '2rem' }}>
+                <h3 className="deep-dive-section-label">
+                  🖼️ Thesis Visuals, CFD Contours & Animations
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+                  {mediaGallery.map((item, mIdx) => (
+                    <div
+                      key={mIdx}
+                      style={{
+                        background: 'rgba(18, 20, 26, 0.75)',
+                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        borderRadius: '12px',
+                        padding: '1.5rem',
+                        backdropFilter: 'blur(10px)',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                      }}
+                    >
+                      <div style={{ marginBottom: '1rem' }}>
+                        <h4 style={{
+                          fontFamily: "'Inter', system-ui, sans-serif",
+                          fontSize: '1.1rem',
+                          fontWeight: 600,
+                          color: '#fff',
+                          letterSpacing: '0.5px',
+                          margin: '0 0 0.4rem 0',
+                        }}>
+                          {item.title}
+                        </h4>
+                        {item.caption && (
+                          <p style={{ margin: 0, fontSize: '0.88rem', color: '#ff9800', fontStyle: 'italic', lineHeight: 1.5 }}>
+                            {item.caption}
+                          </p>
+                        )}
+                      </div>
+
+                      {item.img && (
+                        <div style={{
+                          width: '100%',
+                          height: '420px',
+                          background: '#080a0f',
+                          borderRadius: '8px',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          overflow: 'hidden',
+                        }}>
+                          <img
+                            src={item.img}
+                            alt={item.title}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'contain',
+                            }}
+                          />
+                        </div>
+                      )}
+
+                      {item.fileNote && (
+                        <div style={{ marginTop: '0.85rem', fontSize: '0.8rem', color: '#4da6ff', fontFamily: 'monospace' }}>
+                          📁 {item.fileNote}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
