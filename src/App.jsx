@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Projects from './pages/Projects';
-import Rocketry from './pages/Rocketry';
+import FiftyTwoProjects from './pages/FiftyTwoProjects';
 import Research from './pages/Research';
 import './index.css';
 
@@ -24,7 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/rocketry" element={<Rocketry />} />
+        <Route path="/52-projects" element={<FiftyTwoProjects />} />
         <Route path="/research" element={<Research />} />
       </Routes>
       <Footer />
