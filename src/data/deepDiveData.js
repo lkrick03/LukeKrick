@@ -44,9 +44,7 @@ export const deepDiveData = {
        Replace the placeholder below with 2-3 sentences explaining the design challenge,
        gimbal mechanism constraints, or control loop response time.
        ---------------------------------------------------------------------- */
-    overview: `
-      "Designed a TVC Gymbal from scratch based off different designs. Based on two cocentric revolving circles, the design uses 3D printed parts along with heated inserts for easy installation. Two servos along with a microcontroller and 9-DOF sensor are used to have complete control of the angle of the motor."
-    `,
+    overview: `Designed a TVC gimbal from scratch based off different designs. Based on two concentric revolving circles, the design uses 3D printed parts along with heat-set inserts for easy installation. Two servos along with a microcontroller and 9-DOF sensor are used to have complete control of the angle of the motor.`,
 
     /* ----------------------------------------------------------------------
        NOTE FOR LUKE: Key Technical Specifications
@@ -193,9 +191,7 @@ print("Both servos returned to center ({}°)".format(CENTER))
     subtitle: 'Potassium Nitrate & Sugar Fuel Formulation (KNO3/Sugar)',
     category: 'Propulsion & Instrumentation',
 
-    overview: `
-      Developed an experimental solid propellant formulation utilizing KNO3 and sugar. Built an instrumented test stand with a load cell and an Arduino to capture thrust curves and total impulse."
-    `,
+    overview: `Developed an experimental solid propellant formulation utilizing KNO3 and sugar. Built an instrumented test stand with a load cell and an Arduino to capture thrust curves and total impulse.`,
 
     specs: [
       { label: 'Propellant Type', value: 'KNO3 + Sugar' },
@@ -327,9 +323,7 @@ void loop() {
     pdfUrl: `${import.meta.env.BASE_URL}LK_Final_Thesis_Draft.pdf`,
     pdfTitle: 'Read Full 71-Page Senior Honors Thesis (PDF)',
 
-    overview: `
-      "Investigated the aerodynamic performance of an original grid flap configuration integrated with a NACA 2414 airfoil in a 2D numerical wind tunnel. Automated high-resolution CFD angle-of-attack sweeps on a GPU HPC cluster ('Totoro') across Re = 300,000 & 500,000. Discovered that grid flaps induce premature boundary layer separation (~14° AoA) but significantly cushion post-stall lift loss—retaining 85% of peak lift (1.35 to 1.15) versus a 40% drop for the baseline airfoil (1.25 to 0.75)—while exhibiting a continuously increasing post-stall lift-to-drag efficiency curve."
-    `,
+    overview: `Investigated the aerodynamic performance of an original grid flap configuration integrated with a NACA 2414 airfoil in a 2D numerical wind tunnel. Automated high-resolution CFD angle-of-attack sweeps on a GPU HPC cluster across Re = 300,000 and 500,000. Discovered that grid flaps induce premature boundary layer separation (~14° AoA) but significantly cushion post-stall lift loss—retaining 85% of peak lift (1.35 to 1.15) versus a 40% drop for the baseline airfoil (1.25 to 0.75)—while exhibiting a continuously increasing post-stall lift-to-drag efficiency curve.`,
 
     specs: [
       { label: 'Thesis Scope', value: '71-Page Senior Honors Thesis (Liberty University)' },
@@ -668,9 +662,7 @@ print("CFD Convergence Processing Module Initialized.")
     subtitle: 'Transient Thermal-Fluid Simulation in ANSYS Fluent',
     category: 'Thermal & Fluid Mechanics',
 
-    overview: `
-      "Modeled transient heat transfer through a phenolic liner and aluminum motor casing during a propellant burn. Authored a 10-page report detailing temperature gradients."
-    `,
+    overview: `Modeled transient heat transfer through a phenolic liner and aluminum motor casing during a propellant burn. Authored a 10-page report detailing temperature gradients and thermal barrier performance.`,
 
     specs: [
       { label: 'Report Length', value: '10-Page Research & CFD Report' },
@@ -785,9 +777,7 @@ q = (Tinf - T1) / RT
     subtitle: 'Automated ANSYS Simulation Workflows via PyMechanical & Generative AI',
     category: 'Automation & Computational Modeling',
 
-    overview: `
-      "Investigated integration of Python scripting (PyMechanical API) with Generative AI models (Copilot, ChatGPT, Grok) to evaluate meshing parameters, simulation stress values, and percentage error compared to analytical calculations."
-    `,
+    overview: `Investigated integration of Python scripting (PyMechanical API) with Generative AI models (Copilot, ChatGPT, Grok) to evaluate meshing parameters, simulation stress values, and percentage error compared to analytical calculations.`,
 
     specs: [
       { label: 'API Framework', value: 'PyMechanical (Ansys Python API)' },
@@ -873,10 +863,7 @@ q = (Tinf - T1) / RT
     subtitle: 'IREC 10,000 ft Student Researched & Developed (SRAD) Rocket',
     category: 'System Engineering & Competition Leadership',
 
-    overview: `
-      [YOUR OVERVIEW HERE]: Summarize your vision, subteam coordination, and IREC competition goals.
-      "Led full engineering lifecycle for 10,000 ft high-power rocket competing at Intercollegiate Rocket Engineering Competition (IREC). Managed CFD, trajectory simulation, structural sizing, and recovery teams."
-    `,
+    overview: `Led full engineering lifecycle for 10,000 ft high-power rocket competing at the Intercollegiate Rocket Engineering Competition (IREC). Managed CFD, trajectory simulation, structural sizing, and recovery teams to achieve altitude targets within 3% error.`,
 
     specs: [
       { label: 'Role Title', value: 'Chief Engineer (Liberty Rocketry)' },
@@ -952,9 +939,7 @@ xlabel('Time (s)'); ylabel('Altitude (ft)'); legend('Simulated', 'Flight');
     subtitle: 'Modular Experimental Solid Rocket Motor & Test Stand',
     category: 'Propulsion Hardware & Safety Protocols',
 
-    overview: `
-      [YOUR OVERVIEW HERE]: Summarize modular motor casing design and mixing procedure validations.
-    `,
+    overview: `Initiated and assisted in the design of a specialized test stand and modular motor casing utilizing a phenolic liner, high-temp gaskets, and bolted sections to enable variable casing lengths while enforcing fuel mixing safety protocols.`,
 
     specs: [
       { label: 'Casing Construction', value: 'Modular Bolted Aluminium Casing + Phenolic Liner' },
@@ -977,9 +962,7 @@ xlabel('Time (s)'); ylabel('Altitude (ft)'); legend('Simulated', 'Flight');
     subtitle: 'Converging-Diverging Nozzle Design & MATLAB Over-pressurization Script',
     category: 'Gas Dynamics & Nozzle Design',
 
-    overview: `
-      [YOUR OVERVIEW HERE]: Summarize nozzle design geometry, throat erosion analysis, and MATLAB script.
-    `,
+    overview: `Designed a converging-diverging De Laval nozzle for experimental solid rocket motors, manufactured an instrumented hot-fire test stand for validation, and authored a MATLAB gas-dynamics script to evaluate throat sizing and mitigate casing over-pressurization risks.`,
 
     specs: [
       { label: 'Nozzle Type', value: 'Converging-Diverging (De Laval Nozzle)' },
