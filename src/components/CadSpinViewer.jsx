@@ -123,20 +123,18 @@ function ModelLoader({ url }) {
   );
 }
 
-export default function CadSpinViewer({ modelUrl, fileLocationNote }) {
+export default function CadSpinViewer({ modelUrl }) {
   return (
     <div className="cad-spin-wrapper">
-      {/* CAD Canvas Container */}
       <div className="cad-spin-canvas-container">
         <Canvas
-          camera={{ position: [0, 1.5, 4.0], fov: 45 }}
-          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 3.8], fov: 45 }}
           gl={{ antialias: true, alpha: true }}
-          style={{ pointerEvents: 'none', background: 'transparent' }}
         >
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[5, 8, 5]} intensity={1.5} color="#ffffff" />
-          <directionalLight position={[-5, -4, -5]} intensity={0.5} color="#4da6ff" />
+          {/* Lighting */}
+          <ambientLight intensity={1.2} />
+          <directionalLight position={[5, 8, 5]} intensity={2.0} />
+          <directionalLight position={[-5, -4, -5]} intensity={0.8} color="#4da6ff" />
           <pointLight position={[0, 4, 0]} intensity={1.0} color="#ff9800" />
 
           <ModelLoader url={modelUrl} />
@@ -147,12 +145,6 @@ export default function CadSpinViewer({ modelUrl, fileLocationNote }) {
         <span className="spin-dot" />
         <span>Auto-Rotating 3D CAD Model</span>
       </div>
-
-      {fileLocationNote && (
-        <div className="cad-spin-file-info">
-          <span>📁 SolidWorks CAD file: <code>{fileLocationNote}</code></span>
-        </div>
-      )}
     </div>
   );
 }

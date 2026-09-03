@@ -7,7 +7,7 @@ export default function InteractiveChart({ chartData }) {
   if (!chartData || !chartData.series || chartData.series.length === 0) {
     return (
       <div className="interactive-chart__placeholder">
-        <p>[LUKE NOTE]: No chart series data defined for this topic yet.</p>
+        <p>Simulation and performance data are being processed.</p>
       </div>
     );
   }

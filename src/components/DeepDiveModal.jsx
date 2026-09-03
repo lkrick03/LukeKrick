@@ -41,20 +41,17 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
     cadNotes,
     cadImage,
     cadImageTitle,
-    cadFileLocationNote,
     cadModelUrl,
-    cadModelFileLocationNote,
     image,
     imageTitle,
     imageCaption,
-    imageFileLocationNote,
     tables,
     pdfUrl,
     pdfTitle,
     mediaGallery,
   } = data;
 
-  const hasCadModel = Boolean(cadModelUrl || cadImage || cadFileLocationNote || cadModelFileLocationNote);
+  const hasCadModel = Boolean(cadModelUrl || cadImage);
   const hasCharts = Boolean(charts && charts.length > 0);
   const hasImage = Boolean(image);
   const hasTables = Boolean(tables && tables.length > 0);
@@ -154,7 +151,7 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
               </div>
             ) : (
               <p className="deep-dive-placeholder">
-                [LUKE NOTE]: Add specifications to <code>specs</code> array in <code>deepDiveData.js</code>.
+                Key technical specifications are currently being updated.
               </p>
             )}
 
@@ -166,7 +163,6 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
                 </h3>
                 <CadSpinViewer
                   modelUrl={cadModelUrl}
-                  fileLocationNote={cadModelFileLocationNote || cadFileLocationNote}
                 />
               </div>
             )}
@@ -190,8 +186,8 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
                     style={{
                       maxWidth: '100%',
                       maxHeight: '420px',
-                      borderRadius: '8px',
                       objectFit: 'contain',
+                      borderRadius: '8px',
                       boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                     }}
                   />
@@ -204,19 +200,6 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
                     }}>
                       {imageCaption}
                     </p>
-                  )}
-                  {imageFileLocationNote && (
-                    <div style={{
-                      marginTop: '0.75rem',
-                      fontSize: '0.8rem',
-                      color: 'var(--color-text-tertiary, #718096)',
-                      background: 'rgba(0, 0, 0, 0.25)',
-                      padding: '0.5rem 0.75rem',
-                      borderRadius: '6px',
-                      fontFamily: 'monospace',
-                    }}>
-                      📁 {imageFileLocationNote}
-                    </div>
                   )}
                 </div>
               </div>
@@ -283,11 +266,6 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
                         </div>
                       )}
 
-                      {item.fileNote && (
-                        <div style={{ marginTop: '0.85rem', fontSize: '0.8rem', color: '#4da6ff', fontFamily: 'monospace' }}>
-                          📁 {item.fileNote}
-                        </div>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -444,7 +422,7 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
               ))
             ) : (
               <p className="deep-dive-placeholder">
-                [LUKE NOTE]: Add your code snippets to <code>codeSnippets</code> in <code>deepDiveData.js</code>.
+                Implementation scripts and source code are available upon request.
               </p>
             )}
           </div>
@@ -459,7 +437,6 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
               <div style={{ marginBottom: '1.5rem' }}>
                 <CadSpinViewer
                   modelUrl={cadModelUrl}
-                  fileLocationNote={cadModelFileLocationNote || cadFileLocationNote}
                 />
               </div>
             )}
@@ -475,7 +452,7 @@ export default function DeepDiveModal({ isOpen, onClose, data }) {
               </ul>
             ) : (
               <p className="deep-dive-placeholder">
-                [LUKE NOTE]: Add CAD notes and manufacturing parameters to <code>cadNotes</code> in <code>deepDiveData.js</code>.
+                CAD models, mechanical schematics, and manufacturing drawings available upon request.
               </p>
             )}
           </div>

@@ -8,7 +8,7 @@ export default function Landing() {
   return (
     <div className="landing">
       <section className="hero">
-        <img src={p1Bg} alt="Rocket Background Placeholder" className="hero__bg" />
+        <img src={p1Bg} alt="High-Power Rocket Launch" className="hero__bg" />
         <div className="hero__content">
           <h1 className="hero__title">
             LUKE KRICK
