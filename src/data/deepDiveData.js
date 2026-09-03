@@ -681,12 +681,48 @@ print("CFD Convergence Processing Module Initialized.")
       { label: 'Liner Material', value: 'Phenolic Liner' },
     ],
 
-    image: getAssetImg('p12'),
+    image: getAssetImg('p13'),
     imageTitle: 'Solid Rocket Motor Casing CFD Thermal Visual',
     imageCaption: 'ANSYS Fluent Steady-State thermal simulation contour showing temperature gradients across the phenolic liner and aluminum motor casing.',
-    imageFileLocationNote: 'To replace this image, place your image in src/assets/ and update getAssetImg() in deepDiveData.js.',
 
-    charts: [],
+    charts: [
+      {
+        chartTitle: 'Distance Versus Temperature (Radial Thermal Gradient)',
+        xAxisLabel: 'Radial Distance Y (m)',
+        yAxisLabel: 'Temperature (K)',
+        note: 'Extracted simulation curve from ANSYS Fluent. Demonstrates the core gas flow (2000 K), the steep thermal gradient across the low-conductivity phenolic insulator liner (0.033 m to 0.0435 m), and temperature conduction across the aluminum casing to ambient (293.8 K).',
+        series: [
+          {
+            name: 'Temperature [K]',
+            data: [
+              { x: 0.0000, y: 2000.0 },
+              { x: 0.0050, y: 2000.0 },
+              { x: 0.0100, y: 2000.0 },
+              { x: 0.0150, y: 2000.0 },
+              { x: 0.0200, y: 2000.0 },
+              { x: 0.0250, y: 2000.0 },
+              { x: 0.0300, y: 1996.1 },
+              { x: 0.0326, y: 1992.1 },
+              { x: 0.0340, y: 1819.4 },
+              { x: 0.0350, y: 1697.6 },
+              { x: 0.0360, y: 1575.9 },
+              { x: 0.0370, y: 1444.4 },
+              { x: 0.0380, y: 1320.7 },
+              { x: 0.0390, y: 1173.4 },
+              { x: 0.0400, y: 1026.2 },
+              { x: 0.0410, y: 875.0 },
+              { x: 0.0420, y: 729.7 },
+              { x: 0.0430, y: 576.6 },
+              { x: 0.0435, y: 503.9 },
+              { x: 0.0450, y: 441.1 },
+              { x: 0.0465, y: 386.1 },
+              { x: 0.0480, y: 331.2 },
+              { x: 0.0490, y: 293.8 },
+            ],
+          },
+        ],
+      },
+    ],
 
     codeSnippets: [
       {

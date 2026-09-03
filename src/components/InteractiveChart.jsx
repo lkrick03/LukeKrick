@@ -57,6 +57,15 @@ export default function InteractiveChart({ chartData }) {
     return xMin + (i * (xMax - xMin)) / (xTicksCount - 1);
   });
 
+  // Tick number formatting helper
+  const formatTick = (val) => {
+    if (Math.abs(val) === 0) return '0';
+    if (Math.abs(val) < 0.01) return val.toFixed(3);
+    if (Math.abs(val) < 1) return val.toFixed(2);
+    if (Math.abs(val) >= 100) return Math.round(val).toString();
+    return val.toFixed(1);
+  };
+
   return (
     <div className="interactive-chart-wrapper">
       <div className="interactive-chart__header">
@@ -84,7 +93,7 @@ export default function InteractiveChart({ chartData }) {
                   className="interactive-chart__axis-text"
                   textAnchor="end"
                 >
-                  {tickVal.toFixed(1)}
+                  {formatTick(tickVal)}
                 </text>
               </g>
             );
@@ -101,7 +110,7 @@ export default function InteractiveChart({ chartData }) {
                   className="interactive-chart__axis-text"
                   textAnchor="middle"
                 >
-                  {tickVal.toFixed(1)}
+                  {formatTick(tickVal)}
                 </text>
               </g>
             );
@@ -186,7 +195,7 @@ export default function InteractiveChart({ chartData }) {
             />
             <strong>{activePoint.name}:</strong>
             <span>
-              X: {activePoint.x}, Y: {activePoint.y}
+              {xAxisLabel ? `${xAxisLabel}: ` : 'X: '}{activePoint.x} | {yAxisLabel ? `${yAxisLabel}: ` : 'Y: '}{activePoint.y}
             </span>
           </div>
         )}
