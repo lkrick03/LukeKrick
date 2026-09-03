@@ -20,8 +20,8 @@ export default function Navbar() {
   const links = [
     { to: '/', label: 'Home' },
     { to: '/projects', label: 'Projects' },
-    { to: '/52-projects', label: '52 Projects' },
     { to: '/research', label: 'Research' },
+    { to: '/52-projects', label: '52 Challenges' },
     { to: '/resume', label: 'Resume' },
   ];
 

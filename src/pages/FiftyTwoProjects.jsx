@@ -42,7 +42,7 @@ export default function FiftyTwoProjects() {
     <div className="fifty-two-page">
       <header className="exp-header">
         <span className="exp-header__label">Weekly Engineering Challenge</span>
-        <h1 className="exp-header__title">52 Projects</h1>
+        <h1 className="exp-header__title">52 Challenges</h1>
         <p className="fifty-two-subtitle">
           Building and documenting 1 small engineering, software, or hardware project every week for a full year.
         </p>
