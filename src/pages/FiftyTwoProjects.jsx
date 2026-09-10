@@ -2,6 +2,32 @@ import { useState } from 'react';
 import { initialFiftyTwoProjects } from '../data/fiftyTwoProjectsData';
 import './FiftyTwoProjects.css';
 
+// Check for bundled assets in src/assets/ if user places images there
+const bundledAssets = import.meta.glob('../assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { eager: true, import: 'default' });
+
+export const resolveAssetUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+    return url;
+  }
+
+  // Check if filename matches an asset inside src/assets/
+  const filename = url.split('/').pop();
+  const matchedKey = Object.keys(bundledAssets).find((k) => k.endsWith(`/${filename}`));
+  if (matchedKey && bundledAssets[matchedKey]) {
+    return bundledAssets[matchedKey];
+  }
+
+  // Otherwise resolve against Vite base URL (e.g. /LukeKrick/)
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  if (url.startsWith(baseUrl)) {
+    return url;
+  }
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+  const cleanPath = url.startsWith('/') ? url.slice(1) : url;
+  return `${cleanBase}${cleanPath}`;
+};
+
 export default function FiftyTwoProjects() {
   const [projects] = useState(initialFiftyTwoProjects);
   const [openWeeks, setOpenWeeks] = useState({});
@@ -187,31 +213,34 @@ export default function FiftyTwoProjects() {
                           <div className="project-gallery">
                             <h4 className="project-gallery__heading">Photos & Media</h4>
                             <div className={`project-gallery__grid ${images.length === 1 ? 'single-photo' : 'multi-photo'}`}>
-                              {images.map((imgSrc, imgIdx) => (
-                                <div
-                                  key={imgIdx}
-                                  className="project-gallery__item"
-                                  onClick={() => setActivePhoto({ src: imgSrc, title: project.title })}
-                                  role="button"
-                                  tabIndex={0}
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                      e.preventDefault();
-                                      setActivePhoto({ src: imgSrc, title: project.title });
-                                    }
-                                  }}
-                                >
-                                  <img
-                                    src={imgSrc}
-                                    alt={`${project.title} - photo ${imgIdx + 1}`}
-                                    loading="lazy"
-                                    className="project-gallery__img"
-                                  />
-                                  <div className="project-gallery__overlay">
-                                    <span>Click to view full size</span>
+                              {images.map((imgSrc, imgIdx) => {
+                                const resolvedSrc = resolveAssetUrl(imgSrc);
+                                return (
+                                  <div
+                                    key={imgIdx}
+                                    className="project-gallery__item"
+                                    onClick={() => setActivePhoto({ src: resolvedSrc, title: project.title })}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setActivePhoto({ src: resolvedSrc, title: project.title });
+                                      }
+                                    }}
+                                  >
+                                    <img
+                                      src={resolvedSrc}
+                                      alt={`${project.title} - photo ${imgIdx + 1}`}
+                                      loading="lazy"
+                                      className="project-gallery__img"
+                                    />
+                                    <div className="project-gallery__overlay">
+                                      <span>Click to view full size</span>
+                                    </div>
                                   </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         );
