@@ -6,6 +6,7 @@ export default function FiftyTwoProjects() {
   const [projects] = useState(initialFiftyTwoProjects);
   const [openWeeks, setOpenWeeks] = useState({});
   const [filter, setFilter] = useState('ALL');
+  const [activePhoto, setActivePhoto] = useState(null);
 
   const toggleWeek = (id) => {
     setOpenWeeks((prev) => ({
@@ -172,6 +173,50 @@ export default function FiftyTwoProjects() {
                         </div>
                       )}
 
+                      {/* Photos & CAD Renders Gallery */}
+                      {(() => {
+                        const images = [
+                          ...(project.image ? [project.image] : []),
+                          ...(Array.isArray(project.images) ? project.images : []),
+                          ...(Array.isArray(project.gallery) ? project.gallery : []),
+                        ].filter(Boolean);
+
+                        if (images.length === 0) return null;
+
+                        return (
+                          <div className="project-gallery">
+                            <h4 className="project-gallery__heading">Photos & Media</h4>
+                            <div className={`project-gallery__grid ${images.length === 1 ? 'single-photo' : 'multi-photo'}`}>
+                              {images.map((imgSrc, imgIdx) => (
+                                <div
+                                  key={imgIdx}
+                                  className="project-gallery__item"
+                                  onClick={() => setActivePhoto({ src: imgSrc, title: project.title })}
+                                  role="button"
+                                  tabIndex={0}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                      e.preventDefault();
+                                      setActivePhoto({ src: imgSrc, title: project.title });
+                                    }
+                                  }}
+                                >
+                                  <img
+                                    src={imgSrc}
+                                    alt={`${project.title} - photo ${imgIdx + 1}`}
+                                    loading="lazy"
+                                    className="project-gallery__img"
+                                  />
+                                  <div className="project-gallery__overlay">
+                                    <span>Click to view full size</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })()}
+
                       {project.tags && project.tags.length > 0 && (
                         <div className="project-tags">
                           {project.tags.map((tag, idx) => (
@@ -202,6 +247,29 @@ export default function FiftyTwoProjects() {
           })}
         </div>
       </div>
+
+      {/* Lightbox Modal for Full Resolution Photos */}
+      {activePhoto && (
+        <div className="photo-lightbox" onClick={() => setActivePhoto(null)}>
+          <div className="photo-lightbox__dialog" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="photo-lightbox__close"
+              onClick={() => setActivePhoto(null)}
+              aria-label="Close photo preview"
+            >
+              ✕
+            </button>
+            <img
+              src={activePhoto.src}
+              alt={activePhoto.title}
+              className="photo-lightbox__img"
+            />
+            <div className="photo-lightbox__footer">
+              <span className="photo-lightbox__title">{activePhoto.title}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
