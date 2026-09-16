@@ -188,6 +188,21 @@ export default function FiftyTwoProjects() {
                         </div>
                       )}
 
+                      {/* Key Engineering Specifications */}
+                      {project.specs && project.specs.length > 0 && (
+                        <div className="project-specs-section">
+                          <h4 className="project-subheading">Key Specifications & Operating Parameters</h4>
+                          <div className="project-specs-grid">
+                            {project.specs.map((spec, sIdx) => (
+                              <div key={sIdx} className="project-spec-card">
+                                <span className="spec-card-label">{spec.label}</span>
+                                <span className="spec-card-value">{spec.value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
                       {project.highlights && project.highlights.length > 0 && (
                         <div className="project-highlights">
                           <h4>Key Highlights</h4>
@@ -199,44 +214,124 @@ export default function FiftyTwoProjects() {
                         </div>
                       )}
 
+                      {/* CFD Tabulated Performance & Station Data */}
+                      {(project.performanceResults || project.summaryData) && (
+                        <div className="project-tables-section">
+                          <h4 className="project-subheading">CFD Simulation Tabulated Results</h4>
+
+                          {project.performanceResults && (
+                            <div className="project-table-wrapper">
+                              <div className="table-caption">
+                                <strong>Table 6:</strong> Impeller Performance Results (ANSYS CFX Turbomachinery Fluid Flow)
+                              </div>
+                              <div className="table-scroll-container">
+                                <table className="project-data-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Parameter</th>
+                                      <th>Simulation Value</th>
+                                      <th>Units</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {project.performanceResults.map((row, rIdx) => (
+                                      <tr key={rIdx}>
+                                        <td className="table-label">{row.parameter}</td>
+                                        <td className="table-value font-mono">{row.value}</td>
+                                        <td className="table-units">{row.units}</td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          )}
+
+                          {project.summaryData && (
+                            <div className="project-table-wrapper" style={{ marginTop: '1.25rem' }}>
+                              <div className="table-caption">
+                                <strong>Table 7:</strong> Station Solution Summary Data (Mass / Area Averaged)
+                              </div>
+                              <div className="table-scroll-container">
+                                <table className="project-data-table station-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Quantity</th>
+                                      <th>Inlet</th>
+                                      <th>LE Cut</th>
+                                      <th>TE Cut</th>
+                                      <th>Outlet</th>
+                                      <th>Δ (TE − LE)</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {project.summaryData.map((row, rIdx) => (
+                                      <tr key={rIdx}>
+                                        <td className="table-label font-bold">{row.quantity}</td>
+                                        <td className="table-val">{row.inlet}</td>
+                                        <td className="table-val">{row.leCut}</td>
+                                        <td className="table-val highlight-val">{row.teCut}</td>
+                                        <td className="table-val">{row.outlet}</td>
+                                        <td className="table-val delta-val">{row.teMinusLe}</td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       {/* Photos & CAD Renders Gallery */}
                       {(() => {
-                        const images = [
+                        const rawItems = [
+                          ...(Array.isArray(project.gallery) ? project.gallery : []),
                           ...(project.image ? [project.image] : []),
                           ...(Array.isArray(project.images) ? project.images : []),
-                          ...(Array.isArray(project.gallery) ? project.gallery : []),
                         ].filter(Boolean);
 
-                        if (images.length === 0) return null;
+                        // Deduplicate items by image URL
+                        const seen = new Set();
+                        const items = rawItems.filter((item) => {
+                          const s = typeof item === 'string' ? item : item.src;
+                          if (!s || seen.has(s)) return false;
+                          seen.add(s);
+                          return true;
+                        });
+
+                        if (items.length === 0) return null;
 
                         return (
                           <div className="project-gallery">
-                            <h4 className="project-gallery__heading">Photos & Media</h4>
-                            <div className={`project-gallery__grid ${images.length === 1 ? 'single-photo' : 'multi-photo'}`}>
-                              {images.map((imgSrc, imgIdx) => {
+                            <h4 className="project-gallery__heading">Photos & CFD Simulation Figures</h4>
+                            <div className={`project-gallery__grid ${items.length === 1 ? 'single-photo' : 'multi-photo'}`}>
+                              {items.map((item, imgIdx) => {
+                                const imgSrc = typeof item === 'string' ? item : item.src;
+                                const imgTitle = (typeof item === 'object' && item.title) ? item.title : `${project.title} - Figure ${imgIdx + 1}`;
                                 const resolvedSrc = resolveAssetUrl(imgSrc);
                                 return (
                                   <div
                                     key={imgIdx}
                                     className="project-gallery__item"
-                                    onClick={() => setActivePhoto({ src: resolvedSrc, title: project.title })}
+                                    onClick={() => setActivePhoto({ src: resolvedSrc, title: imgTitle })}
                                     role="button"
                                     tabIndex={0}
                                     onKeyDown={(e) => {
                                       if (e.key === 'Enter' || e.key === ' ') {
                                         e.preventDefault();
-                                        setActivePhoto({ src: resolvedSrc, title: project.title });
+                                        setActivePhoto({ src: resolvedSrc, title: imgTitle });
                                       }
                                     }}
                                   >
                                     <img
                                       src={resolvedSrc}
-                                      alt={`${project.title} - photo ${imgIdx + 1}`}
+                                      alt={imgTitle}
                                       loading="lazy"
                                       className="project-gallery__img"
                                     />
                                     <div className="project-gallery__overlay">
-                                      <span>Click to view full size</span>
+                                      <span>{imgTitle}</span>
                                     </div>
                                   </div>
                                 );

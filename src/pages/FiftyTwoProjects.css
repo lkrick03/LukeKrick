@@ -533,6 +533,166 @@
   color: var(--color-text-primary);
 }
 
+/* Subheadings for inner sections */
+.project-subheading {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+/* Key Specifications Grid */
+.project-specs-section {
+  margin-top: var(--space-xs);
+}
+
+.project-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-sm);
+}
+
+.project-spec-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  padding: 12px 14px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-spec-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.spec-card-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  font-family: var(--font-primary);
+}
+
+.spec-card-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: var(--font-display, monospace);
+  letter-spacing: 0.5px;
+}
+
+/* Tabulated CFD Results */
+.project-tables-section {
+  margin-top: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.project-table-wrapper {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table-caption {
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-primary);
+}
+
+.table-caption strong {
+  color: var(--color-text-primary);
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.project-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.project-data-table th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-data-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--color-text-secondary);
+}
+
+.project-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.project-data-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.table-label {
+  color: var(--color-text-primary) !important;
+}
+
+.table-value,
+.table-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+}
+
+.table-units {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.font-mono {
+  font-family: var(--font-mono, monospace);
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.station-table th,
+.station-table td {
+  text-align: right;
+}
+
+.station-table th:first-child,
+.station-table td:first-child {
+  text-align: left;
+}
+
+.highlight-val {
+  color: #60a5fa !important;
+  font-weight: 600;
+}
+
+.delta-val {
+  color: #34d399 !important;
+  font-weight: 600;
+}
 
 /* Responsive adjust */
 @media (max-width: 768px) {

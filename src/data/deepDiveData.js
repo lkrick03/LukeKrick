@@ -962,4 +962,152 @@ fprintf('Required Expansion Ratio (Ae/At): %.2f\n', Ae_At);
       'Selected high-density graphite insert at the nozzle throat for thermal shock resistance and erosion protection during propellant burn.',
     ],
   },
+
+  // --------------------------------------------------------------------------
+  // WEEKLY 52 CHALLENGES DEEP DIVES
+  // --------------------------------------------------------------------------
+
+  'turbopump-impeller-cfd': {
+    id: 'turbopump-impeller-cfd',
+    title: 'Pump Impeller Report',
+    subtitle: 'ANSYS CFX Turbomachinery Fluid Flow Simulation (Case: TFF)',
+    category: 'Turbomachinery & CFD Analysis',
+
+    overview: `
+      "CFD simulation of a pump impeller in ANSYS CFX (Case: TFF). Analyzed fluid flow across rotating domain R1 in water at 1,450 RPM using SST turbulence modeling, evaluating total head, shaft power, blade loading, and stage performance."
+    `,
+
+    image: '/52-projects/PumpReport/Figure001.png',
+    imageTitle: 'Figure 1: Isometric 3D View of the Blade, Hub and Shroud',
+    imageCaption: 'ANSYS CFX 26.1 Turbomachinery Fluid Flow simulation geometry and domain for R1.',
+
+    specs: [
+      { label: 'CFD Solver & Case', value: 'ANSYS CFX 26.1 (Case: TFF)' },
+      { label: 'Working Fluid', value: 'Water (Density: 62.2407 lb/ft³)' },
+      { label: 'Rotation Speed', value: '1,450.0 RPM (151.8440 rad/s)' },
+      { label: 'Reference Diameter', value: '0.8909 ft' },
+      { label: 'Volume Flow Rate', value: '2.7551 ft³/s' },
+      { label: 'Head (IN-OUT)', value: '68.5248 ft' },
+      { label: 'Head (LE-TE)', value: '70.5865 ft' },
+      { label: 'Total Efficiency (IN-OUT)', value: '86.3876%' },
+      { label: 'Static Efficiency (IN-OUT)', value: '70.0484%' },
+      { label: 'Shaft Power', value: '17.4800 BTU/s' },
+      { label: 'Flow Coefficient', value: '0.0257' },
+      { label: 'Head Coefficient (IN-OUT)', value: '0.1205' },
+      { label: 'Power Coefficient', value: '0.0036' },
+      { label: 'Mesh Resolution', value: '491,964 Nodes / 460,352 Elements' },
+      { label: 'Max Edge Length Ratio', value: '2566.48' },
+      { label: 'Turbulence Model', value: 'SST (Automatic Wall Functions)' },
+    ],
+
+    charts: [
+      {
+        chartTitle: 'Station Pressure Progression (Pstatic vs Ptotal) Across Impeller Domain',
+        xAxisLabel: 'Impeller Flow Station',
+        yAxisLabel: 'Pressure (psi)',
+        note: 'Static pressure (Ps) and total pressure (Pt) rise through the pump stage from Inlet to Outlet, showcasing the 22.0 psi blade pressure boost.',
+        series: [
+          {
+            name: 'Static Pressure Ps (psi)',
+            data: [
+              { x: 0, y: -0.96 }, // Inlet
+              { x: 1, y: -1.73 }, // LE Cut
+              { x: 2, y: 20.27 }, // TE Cut
+              { x: 3, y: 24.01 }, // Outlet
+            ],
+          },
+          {
+            name: 'Total Pressure Pt (psi)',
+            data: [
+              { x: 0, y: -0.01 }, // Inlet
+              { x: 1, y: -0.18 }, // LE Cut
+              { x: 2, y: 30.33 }, // TE Cut
+              { x: 3, y: 29.61 }, // Outlet
+            ],
+          },
+        ],
+      },
+      {
+        chartTitle: 'Velocity Vectors Progression: Absolute (C) vs Relative (W) Velocity',
+        xAxisLabel: 'Impeller Flow Station',
+        yAxisLabel: 'Velocity (ft/s)',
+        note: 'Kinematic velocity triangle progression across impeller stations: absolute velocity C surges from 11.86 to 41.80 ft/s at TE.',
+        series: [
+          {
+            name: 'Absolute Velocity C (ft/s)',
+            data: [
+              { x: 0, y: 11.86 },
+              { x: 1, y: 18.46 },
+              { x: 2, y: 41.80 },
+              { x: 3, y: 27.14 },
+            ],
+          },
+          {
+            name: 'Relative Velocity W (ft/s)',
+            data: [
+              { x: 0, y: 32.00 },
+              { x: 1, y: 30.33 },
+              { x: 2, y: 28.86 },
+              { x: 3, y: 65.95 },
+            ],
+          },
+          {
+            name: 'Blade Speed U (ft/s)',
+            data: [
+              { x: 0, y: 29.56 },
+              { x: 1, y: 32.88 },
+              { x: 2, y: 67.64 },
+              { x: 3, y: 91.90 },
+            ],
+          },
+        ],
+      },
+    ],
+
+    tables: [
+      {
+        model: 'Performance Results (ANSYS CFX)',
+        badgeColor: '#38bdf8',
+        headers: ['Parameter', 'Simulation Value', 'Units'],
+        rows: [
+          ['Rotation Speed', '151.8440', 'radian s^-1 (1,450 RPM)'],
+          ['Reference Diameter', '0.8909', 'ft (10.69 in)'],
+          ['Volume Flow Rate', '2.7551', 'ft^3 s^-1 (~1,236.6 GPM)'],
+          ['Head (LE-TE)', '70.5865', 'ft'],
+          ['Head (IN-OUT)', '68.5248', 'ft'],
+          ['Flow Coefficient', '0.0257', '—'],
+          ['Head Coefficient (IN-OUT)', '0.1205', '—'],
+          ['Shaft Power', '17.4800', 'BTU s^-1 (~24.7 HP)'],
+          ['Power Coefficient', '0.0036', '—'],
+          ['Total Efficiency (IN-OUT)', '86.3876', '%'],
+          ['Static Efficiency (IN-OUT)', '70.0484', '%'],
+        ],
+      },
+      {
+        model: 'Station Summary Data (Mass/Area Averaged)',
+        badgeColor: '#34d399',
+        headers: ['Quantity', 'Inlet', 'LE Cut', 'TE Cut', 'Outlet', 'Δ (TE - LE)'],
+        rows: [
+          ['Density (lb/ft³)', '62.24', '62.24', '62.24', '62.24', '0.00'],
+          ['Pstatic (psi)', '-0.955', '-1.731', '20.273', '24.005', '+22.005'],
+          ['Ptotal (psi)', '-0.011', '-0.184', '30.326', '29.607', '+30.509'],
+          ['Blade Speed U (ft/s)', '29.56', '32.88', '67.64', '91.90', '+34.75'],
+          ['Meridional Vel Cm (ft/s)', '11.84', '14.06', '8.83', '5.97', '-5.23'],
+          ['Tangential Vel Cu (ft/s)', '0.07', '6.29', '40.41', '26.31', '+34.12'],
+          ['Absolute Vel C (ft/s)', '11.86', '18.46', '41.80', '27.14', '+23.33'],
+          ['Relative Vel W (ft/s)', '32.00', '30.33', '28.86', '65.95', '-1.48'],
+          ['Flow Angle Alpha (rad)', '0.006', '0.469', '1.373', '1.364', '+0.903'],
+          ['Flow Angle Beta (rad)', '-1.156', '-0.654', '-1.297', '-1.399', '-0.643'],
+        ],
+      },
+    ],
+
+    cadNotes: [
+      'CFD Mesh & Boundary Conditions: Domain R1 meshed with 460,352 elements (491,964 nodes) featuring 4 rotational periodic domain interfaces and counter-rotating hub outlet wall.',
+      'SST Turbulence Model: Captured boundary layer physics along blade suction and pressure sides with automatic wall functions under water flow conditions.',
+      'Stage Head & Efficiency: Achieved 68.52 ft head rise with 86.39% total efficiency and 17.48 BTU/s shaft power at 1,450 RPM.',
+      'Static & Total Pressure Boost: Impeller blades produce a +22.00 psi static pressure boost and +30.51 psi total pressure jump from leading edge cut to trailing edge cut.',
+      'Velocity Triangle Analysis: Meridional velocity decelerates from 14.06 ft/s at LE to 8.83 ft/s at TE, while tangential velocity Cu is accelerated to 40.41 ft/s by blade rotation.',
+    ],
+  },
 };
