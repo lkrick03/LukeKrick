@@ -1,10 +1,10 @@
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Projects from './pages/Projects';
-import FiftyTwoProjects from './pages/FiftyTwoProjects';
+import SmallerProjects from './pages/SmallerProjects';
 import Research from './pages/Research';
 import './index.css';
 
@@ -24,7 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/52-projects" element={<FiftyTwoProjects />} />
+        <Route path="/smaller-projects" element={<SmallerProjects />} />
+        <Route path="/52-projects" element={<Navigate to="/smaller-projects" replace />} />
         <Route path="/research" element={<Research />} />
       </Routes>
       <Footer />

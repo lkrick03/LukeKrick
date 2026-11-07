@@ -1,20 +1,47 @@
 /**
- * 52 Challenges - Weekly Engineering & Software Projects
+ * Smaller Projects - Engineering & Software Projects
  * 
  * To add a new project or update an existing one:
- * 1. Add your project object to the `customWeeklyProjects` array below.
- * 2. Save your photos in `public/52-projects/` (e.g. `public/52-projects/week-01.jpg`).
- * 3. Reference the photo as `image: '/52-projects/week-01.jpg'`
- *    or multiple photos as `images: ['/52-projects/week-01.jpg', '/52-projects/week-01-cad.png']`.
+ * 1. Add your project object to the `customSmallerProjects` array below.
+ * 2. Save your photos in `public/smaller-projects/` (e.g. `public/smaller-projects/week-01.jpg`).
+ * 3. Reference the photo as `image: '/smaller-projects/week-01.jpg'`
+ *    or multiple photos as `images: ['/smaller-projects/week-01.jpg', '/smaller-projects/week-01-cad.png']`.
  */
 
-export const customWeeklyProjects = [
+export const customSmallerProjects = [
   {
-    weekNumber: 1,
+    projectNumber: 5,
+    title: 'Python CFD: From Guided Lessons to My Own Experiments',
+    subtitle: 'Finite differences, flow visualization, and wave propagation',
+    status: 'In Progress',
+    date: '2026',
+    category: 'Computational Fluid Dynamics & Numerical Methods',
+    summary: 'I am working through CFD Python by Lorena A. Barba and Gilbert F. Forsyth, building my understanding of numerical methods in my own Jupyter notebooks. Along the way, I am branching out with animations and a separate wave-equation experiment.',
+    details: 'The foundation is Barba and Forsyth\'s CFD Python: the 12 steps to Navier-Stokes equations (2018), whose lesson sequence was inspired by ideas from Rio Yokota. My notebooks follow the course through one- and two-dimensional convection, diffusion, and Burgers\' equations, including CFL stability exercises and a comparison with an analytical solution. I am using these worked examples to learn how finite-difference updates, boundary conditions, and NumPy array operations fit together, then applying those ideas to questions of my own.',
+    highlights: [
+      'Course-based study: implemented linear and nonlinear convection, diffusion, and Burgers\' equations in 1D and 2D, with plots of the evolving solutions.',
+      'Explored grid spacing and timestep choices in CFL exercises, compared loops with NumPy slicing, and plotted numerical versus analytical results for 1D Burgers\' equation.',
+      'Extended the notebook visualizations with animations of 2D nonlinear convection and diffusion to watch the solutions evolve over time.',
+      'Branched into a separate 1D wave-equation notebook, writing out a centered finite-difference scheme with two time levels, fixed ends, and a Courant-based timestep.',
+      'The wave experiment is still exploratory: I am investigating its initialization and unexpected displacement behavior, and using those questions to guide further reading and testing.',
+    ],
+    tags: ['Python', 'CFD', 'NumPy', 'Matplotlib', 'SymPy', 'Jupyter', 'Finite Differences'],
+    gallery: [
+      { src: '/smaller-projects/python-cfd/burgers-comparison.png', title: 'Course-based study: numerical and analytical solutions of 1D Burgers\' equation' },
+      { src: '/smaller-projects/python-cfd/nonlinear-convection.png', title: 'Course-based study: 2D nonlinear convection, v field' },
+      { src: '/smaller-projects/python-cfd/diffusion.png', title: 'Course-based study: 2D diffusion after advancing the solution' },
+    ],
+    sources: [
+      { title: 'Original course: CFD Python by Lorena A. Barba and Gilbert F. Forsyth', url: 'https://github.com/barbagroup/CFDPython' },
+      { title: 'Barba & Forsyth (2018), Journal of Open Source Education, 1(9), 21', url: 'https://doi.org/10.21105/jose.00021' },
+    ],
+  },
+  {
+    projectNumber: 1,
     title: 'Milky Way Galaxy Simulation & Fermi Paradox Analysis',
     subtitle: 'Drake Equation & Radio Bubble Detection Horizon',
     status: 'Completed',
-    date: 'Week 01 • 2026',
+    date: '2026',
     category: 'Computational Modeling with Python',
     summary: 'I coded this over the summer while working through Impractical Python Projects by Lee Vaughan. It models the Milky Way and explores why signals from other civilizations might be so hard to find.',
     details: 'Developed a 2D galactic disk simulation (50,000 light-year radius, 1,000 light-year disk thickness) in Tkinter, scaling coordinates relative to Earth’s ~225 LY radio bubble. Implemented Monte Carlo statistical trials in finding_civs.py to simulate civilizations scattered across equivalent galactic volume partitions, fitting 4th-degree polynomial probability curves to quantify detection likelihood under the Fermi Paradox.',
@@ -25,16 +52,16 @@ export const customWeeklyProjects = [
       'Visualized Earth’s location and broadcast bubble relative to 15.6M potential civilizations',
     ],
     tags: ['Python', 'Tkinter', 'NumPy', 'Matplotlib', 'Astrophysics', 'Simulation'],
-    image: '/52-projects/week-01.png',
+    image: '/smaller-projects/week-01.png',
     githubUrl: 'https://github.com/lkrick03/LK_52_Projects',
     demoUrl: '',
   },
   {
-    weekNumber: 2,
+    projectNumber: 2,
     title: 'Pump Impeller Report',
     subtitle: 'ANSYS CFX Turbomachinery Fluid Flow Simulation (Case: TFF)',
     status: 'Completed',
-    date: 'Week 02 • 2026',
+    date: '2026',
     category: 'Turbomachinery & CFD Analysis',
     summary: 'CFD simulation of a pump impeller in ANSYS CFX (Case: TFF). Analyzed fluid flow across rotating domain R1 in water at 1,450 RPM using SST turbulence modeling, evaluating total head, shaft power, blade loading, and stage performance.',
     details: 'Simulated 3D turbomachinery fluid flow through a pump impeller in ANSYS CFX (v26.1). The computational domain (Domain R1) contains 491,964 nodes and 460,352 elements with 4 rotational periodic interfaces and an automatic wall function SST turbulence model. Water was modeled as a continuous fluid rotating at 1,450 rev/min (151.8440 rad/s) around Coordinate Axis Coord 0.3. Boundary conditions included an axial inlet (0 atm relative total pressure, medium turbulence), mass flow rate outlet, and smooth no-slip walls with a counter-rotating hub outlet wall. The simulation resolved a volume flow rate of 2.7551 ft³/s, producing a stage head (IN-OUT) of 68.5248 ft (LE-TE head of 70.5865 ft), shaft power of 17.4800 BTU/s, 86.3876% total efficiency, and 70.0484% static efficiency.',
@@ -94,49 +121,49 @@ export const customWeeklyProjects = [
       { quantity: 'Flow Angle: Beta [radian]', inlet: '-1.1556', leCut: '-0.6540', teCut: '-1.2970', outlet: '-1.3985', teMinusLe: '-0.6429' },
     ],
     tags: ['ANSYS CFX', 'Turbomachinery', 'Pump Impeller', 'CFD', 'SST Turbulence', 'Fluid Dynamics', 'CFX5'],
-    image: '/52-projects/PumpReport/Figure001.png',
+    image: '/smaller-projects/PumpReport/Figure001.png',
     images: [
-      '/52-projects/PumpReport/Figure001.png',
-      '/52-projects/PumpReport/Figure002.png',
-      '/52-projects/PumpReport/Figure003.png',
-      '/52-projects/PumpReport/Figure006.png',
-      '/52-projects/PumpReport/Figure004.png',
-      '/52-projects/PumpReport/Figure007.png',
-      '/52-projects/PumpReport/Figure009.png',
-      '/52-projects/PumpReport/Figure021.png',
-      '/52-projects/PumpReport/Chart001.png',
-      '/52-projects/PumpReport/Chart002.png',
-      '/52-projects/PumpReport/Chart004.png',
+      '/smaller-projects/PumpReport/Figure001.png',
+      '/smaller-projects/PumpReport/Figure002.png',
+      '/smaller-projects/PumpReport/Figure003.png',
+      '/smaller-projects/PumpReport/Figure006.png',
+      '/smaller-projects/PumpReport/Figure004.png',
+      '/smaller-projects/PumpReport/Figure007.png',
+      '/smaller-projects/PumpReport/Figure009.png',
+      '/smaller-projects/PumpReport/Figure021.png',
+      '/smaller-projects/PumpReport/Chart001.png',
+      '/smaller-projects/PumpReport/Chart002.png',
+      '/smaller-projects/PumpReport/Chart004.png',
     ],
     gallery: [
-      { src: '/52-projects/PumpReport/Figure001.png', title: 'Figure 1 — Isometric 3D View of the Blade, Hub and Shroud' },
-      { src: '/52-projects/PumpReport/Figure002.png', title: 'Figure 2 — Meridional View of the Blade, Hub and Shroud' },
-      { src: '/52-projects/PumpReport/Figure003.png', title: 'Figure 3 — Mesh Elements at 50% Span (460,352 Elements)' },
-      { src: '/52-projects/PumpReport/Figure006.png', title: 'Figure 6 — Contour of Static Pressure (Ps) at 50% Span' },
-      { src: '/52-projects/PumpReport/Figure004.png', title: 'Figure 4 — Contour of Total Pressure (Pt) at 50% Span' },
-      { src: '/52-projects/PumpReport/Figure007.png', title: 'Figure 7 — Contour of Relative Velocity (W) at 50% Span' },
-      { src: '/52-projects/PumpReport/Figure009.png', title: 'Figure 9 — Velocity Vectors at 50% Span' },
-      { src: '/52-projects/PumpReport/Figure021.png', title: 'Figure 21 — Velocity Streamlines at Blade TE' },
-      { src: '/52-projects/PumpReport/Figure011.png', title: 'Figure 11 — Contour of Mass Averaged Pt on Meridional Surface' },
-      { src: '/52-projects/PumpReport/Figure014.png', title: 'Figure 14 — Vector of Area Averaged Cm on Meridional Surface' },
-      { src: '/52-projects/PumpReport/Figure015.png', title: 'Figure 15 — Contour of Pt at Blade LE' },
-      { src: '/52-projects/PumpReport/Figure018.png', title: 'Figure 18 — Contour of Pt at Blade TE' },
-      { src: '/52-projects/PumpReport/Chart001.png', title: 'Chart 1 — Blade Loading at 20% Span' },
-      { src: '/52-projects/PumpReport/Chart002.png', title: 'Chart 2 — Blade Loading at 50% Span' },
-      { src: '/52-projects/PumpReport/Chart004.png', title: 'Chart 4 — Streamwise Plot of Pt and Ps' },
-      { src: '/52-projects/PumpReport/Chart005.png', title: 'Chart 5 — Streamwise Plot of Absolute Velocity (C)' },
-      { src: '/52-projects/PumpReport/Chart006.png', title: 'Chart 6 — Streamwise Plot of Relative Velocity (W)' },
-      { src: '/52-projects/PumpReport/Chart007.png', title: 'Chart 7 — Streamwise Plot of Flow Angles Alpha and Beta' },
+      { src: '/smaller-projects/PumpReport/Figure001.png', title: 'Figure 1 — Isometric 3D View of the Blade, Hub and Shroud' },
+      { src: '/smaller-projects/PumpReport/Figure002.png', title: 'Figure 2 — Meridional View of the Blade, Hub and Shroud' },
+      { src: '/smaller-projects/PumpReport/Figure003.png', title: 'Figure 3 — Mesh Elements at 50% Span (460,352 Elements)' },
+      { src: '/smaller-projects/PumpReport/Figure006.png', title: 'Figure 6 — Contour of Static Pressure (Ps) at 50% Span' },
+      { src: '/smaller-projects/PumpReport/Figure004.png', title: 'Figure 4 — Contour of Total Pressure (Pt) at 50% Span' },
+      { src: '/smaller-projects/PumpReport/Figure007.png', title: 'Figure 7 — Contour of Relative Velocity (W) at 50% Span' },
+      { src: '/smaller-projects/PumpReport/Figure009.png', title: 'Figure 9 — Velocity Vectors at 50% Span' },
+      { src: '/smaller-projects/PumpReport/Figure021.png', title: 'Figure 21 — Velocity Streamlines at Blade TE' },
+      { src: '/smaller-projects/PumpReport/Figure011.png', title: 'Figure 11 — Contour of Mass Averaged Pt on Meridional Surface' },
+      { src: '/smaller-projects/PumpReport/Figure014.png', title: 'Figure 14 — Vector of Area Averaged Cm on Meridional Surface' },
+      { src: '/smaller-projects/PumpReport/Figure015.png', title: 'Figure 15 — Contour of Pt at Blade LE' },
+      { src: '/smaller-projects/PumpReport/Figure018.png', title: 'Figure 18 — Contour of Pt at Blade TE' },
+      { src: '/smaller-projects/PumpReport/Chart001.png', title: 'Chart 1 — Blade Loading at 20% Span' },
+      { src: '/smaller-projects/PumpReport/Chart002.png', title: 'Chart 2 — Blade Loading at 50% Span' },
+      { src: '/smaller-projects/PumpReport/Chart004.png', title: 'Chart 4 — Streamwise Plot of Pt and Ps' },
+      { src: '/smaller-projects/PumpReport/Chart005.png', title: 'Chart 5 — Streamwise Plot of Absolute Velocity (C)' },
+      { src: '/smaller-projects/PumpReport/Chart006.png', title: 'Chart 6 — Streamwise Plot of Relative Velocity (W)' },
+      { src: '/smaller-projects/PumpReport/Chart007.png', title: 'Chart 7 — Streamwise Plot of Flow Angles Alpha and Beta' },
     ],
     githubUrl: '',
     demoUrl: '',
   },
   {
-    weekNumber: 3,
+    projectNumber: 3,
     title: 'Search & Rescue',
     subtitle: 'Finding a missing sailor, one search at a time',
     status: 'Completed',
-    date: 'Week 03 • 2026',
+    date: '2026',
     category: 'Python / Search & Rescue',
     summary: 'Where would you look for someone lost at sea? This Python game lets you choose between three search areas and updates the odds after each attempt. Even an unsuccessful search gives you a clue about where to look next.',
     details: 'I coded this over the summer while working through chapter 1 of Real-World Python by Lee Vaughan. A sailor is hidden somewhere off Cape Python, and you decide how to split the search effort. The map shows the search areas and last known position, then reveals the sailor when you find them. It is a hands-on way to see how new information changes a decision.',
@@ -146,19 +173,19 @@ export const customWeeklyProjects = [
       'Start again with a new hidden location each time',
     ],
     tags: ['Python', 'Probability', 'Maps'],
-    image: '/52-projects/week-03.png',
+    image: '/smaller-projects/week-03.png',
     gallery: [
-      { src: '/52-projects/week-03.png', title: 'Cape Python — the coastal map used in the search game' },
+      { src: '/smaller-projects/week-03.png', title: 'Cape Python — the coastal map used in the search game' },
     ],
     githubUrl: '',
     demoUrl: '',
   },
   {
-    weekNumber: 4,
+    projectNumber: 4,
     title: 'Finding a Landing Site on Mars',
     subtitle: 'A closer look at the terrain before touching down',
     status: 'Completed',
-    date: 'Week 04 • 2026',
+    date: '2026',
     category: 'Python / Space Exploration',
     summary: 'Mars has plenty of room, but some places look much easier to land on than others. This project searches an elevation map for low, relatively even patches of ground near the equator and marks the strongest candidates.',
     details: 'I coded this over the summer while working through chapter 7 of Real-World Python by Lee Vaughan. The program divides the map into overlapping areas, filters out higher terrain, and compares how much the elevation varies within each patch. Areas that rank well in both comparisons make the final shortlist. It is a first pass at narrowing down a huge landscape, rather than a full landing safety assessment.',
@@ -168,56 +195,20 @@ export const customWeeklyProjects = [
       'Mark the shortlisted areas on a color map of Mars',
     ],
     tags: ['Python', 'Mars', 'Image Processing'],
-    image: '/52-projects/week-04.png',
+    image: '/smaller-projects/week-04.png',
     gallery: [
-      { src: '/52-projects/week-04.png', title: 'Mars elevation map — the terrain used to compare landing areas' },
+      { src: '/smaller-projects/week-04.png', title: 'Mars elevation map — the terrain used to compare landing areas' },
     ],
     githubUrl: '',
     demoUrl: '',
   },
 ];
 
-// Generates all 52 weeks automatically, filling in custom projects where available
-export const initialFiftyTwoProjects = Array.from({ length: 52 }, (_, i) => {
-  const weekNum = i + 1;
-  const paddedWeek = String(weekNum).padStart(2, '0');
-  const custom = customWeeklyProjects.find((p) => p.weekNumber === weekNum);
-
-  if (custom) {
-    return {
-      id: `week-${paddedWeek}`,
-      paddedWeek,
-      weekNumber: weekNum,
-      subtitle: '',
-      details: '',
-      highlights: [],
-      tags: [],
-      image: '',
-      images: [],
-      githubUrl: '',
-      demoUrl: '',
-      ...custom,
-      date: custom.date || `Week ${paddedWeek} • 2026`,
-      status: custom.status || 'Completed',
-    };
-  }
-
-  return {
-    id: `week-${paddedWeek}`,
-    weekNumber: weekNum,
-    paddedWeek,
-    title: `Week ${paddedWeek} Project`,
-    subtitle: 'Coming Soon',
-    status: 'Coming Soon', // 'Completed' | 'In Progress' | 'Coming Soon'
-    date: `Week ${paddedWeek} • 2026`,
-    category: 'Engineering / Software',
-    summary: 'Project details and documentation coming soon.',
-    details: 'Details for this weekly project will be posted here. Stay tuned for CAD models, schematics, code repositories, and build updates!',
-    highlights: [],
-    tags: ['Upcoming'],
-    image: '',
-    images: [],
-    githubUrl: '',
-    demoUrl: '',
-  };
-});
+// Show documented projects without a fixed schedule or placeholder entries.
+export const initialSmallerProjects = customSmallerProjects.map((project) => ({
+  ...project,
+  id: `project-${project.projectNumber}`,
+  paddedNumber: String(project.projectNumber).padStart(2, '0'),
+  date: project.date || '',
+  status: project.status || 'Completed',
+}));

@@ -964,7 +964,7 @@ fprintf('Required Expansion Ratio (Ae/At): %.2f\n', Ae_At);
   },
 
   // --------------------------------------------------------------------------
-  // WEEKLY 52 CHALLENGES DEEP DIVES
+  // SMALLER PROJECTS DEEP DIVES
   // --------------------------------------------------------------------------
 
   'turbopump-impeller-cfd': {
@@ -977,7 +977,7 @@ fprintf('Required Expansion Ratio (Ae/At): %.2f\n', Ae_At);
       "CFD simulation of a pump impeller in ANSYS CFX (Case: TFF). Analyzed fluid flow across rotating domain R1 in water at 1,450 RPM using SST turbulence modeling, evaluating total head, shaft power, blade loading, and stage performance."
     `,
 
-    image: '/52-projects/PumpReport/Figure001.png',
+    image: '/smaller-projects/PumpReport/Figure001.png',
     imageTitle: 'Figure 1: Isometric 3D View of the Blade, Hub and Shroud',
     imageCaption: 'ANSYS CFX 26.1 Turbomachinery Fluid Flow simulation geometry and domain for R1.',
 

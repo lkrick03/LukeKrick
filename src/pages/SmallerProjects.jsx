@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { initialFiftyTwoProjects } from '../data/fiftyTwoProjectsData';
-import './FiftyTwoProjects.css';
+import { initialSmallerProjects } from '../data/smallerProjectsData';
+import './SmallerProjects.css';
 
 // Check for bundled assets in src/assets/ if user places images there
 const bundledAssets = import.meta.glob('../assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { eager: true, import: 'default' });
@@ -28,14 +28,14 @@ export const resolveAssetUrl = (url) => {
   return `${cleanBase}${cleanPath}`;
 };
 
-export default function FiftyTwoProjects() {
-  const [projects] = useState(initialFiftyTwoProjects);
-  const [openWeeks, setOpenWeeks] = useState({});
+export default function SmallerProjects() {
+  const [projects] = useState(initialSmallerProjects);
+  const [openProjects, setOpenProjects] = useState({});
   const [filter, setFilter] = useState('ALL');
   const [activePhoto, setActivePhoto] = useState(null);
 
-  const toggleWeek = (id) => {
-    setOpenWeeks((prev) => ({
+  const toggleProject = (id) => {
+    setOpenProjects((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
@@ -46,11 +46,11 @@ export default function FiftyTwoProjects() {
     projects.forEach((p) => {
       allOpen[p.id] = true;
     });
-    setOpenWeeks(allOpen);
+    setOpenProjects(allOpen);
   };
 
   const collapseAll = () => {
-    setOpenWeeks({});
+    setOpenProjects({});
   };
 
   const filteredProjects = projects.filter((p) => {
@@ -63,30 +63,30 @@ export default function FiftyTwoProjects() {
 
   const completedCount = projects.filter((p) => p.status === 'Completed').length;
   const inProgressCount = projects.filter((p) => p.status === 'In Progress').length;
-  const totalCount = 52; // Challenge total
+  const totalCount = projects.length;
 
   return (
-    <div className="fifty-two-page">
+    <div className="smaller-projects-page">
       <header className="exp-header">
-        <span className="exp-header__label">Weekly Engineering Challenge</span>
-        <h1 className="exp-header__title">52 Challenges</h1>
-        <p className="fifty-two-subtitle">
-          Building and documenting 1 small engineering, software, or hardware project every week for a full year.
+        <span className="exp-header__label">Engineering & Software</span>
+        <h1 className="exp-header__title">Smaller Projects</h1>
+        <p className="smaller-projects-subtitle">
+          A collection of smaller engineering, software, and hardware projects.
         </p>
       </header>
 
-      <div className="fifty-two-container">
+      <div className="smaller-projects-container">
         {/* Progress & Stats Bar */}
-        <div className="fifty-two-stats">
+        <div className="smaller-projects-stats">
           <div className="stats-metric">
-            <span className="metric-label">Challenge Progress</span>
+            <span className="metric-label">Project Progress</span>
             <span className="metric-value">{completedCount} <span className="metric-total">/ {totalCount}</span></span>
           </div>
           
           <div className="progress-bar-container">
             <div 
               className="progress-bar-fill" 
-              style={{ width: `${Math.max((completedCount / totalCount) * 100, 2)}%` }}
+              style={{ width: `${Math.max((completedCount / (totalCount || 1)) * 100, 2)}%` }}
             />
           </div>
 
@@ -98,7 +98,7 @@ export default function FiftyTwoProjects() {
         </div>
 
         {/* Toolbar: Filters & Accordion Controls */}
-        <div className="fifty-two-toolbar">
+        <div className="smaller-projects-toolbar">
           <div className="filter-buttons">
             <button
               className={`filter-btn ${filter === 'ALL' ? 'active' : ''}`}
@@ -136,7 +136,7 @@ export default function FiftyTwoProjects() {
         {/* Dropdowns List */}
         <div className="accordion-list">
           {filteredProjects.map((project) => {
-            const isOpen = Boolean(openWeeks[project.id]);
+            const isOpen = Boolean(openProjects[project.id]);
 
             return (
               <div 
@@ -145,18 +145,18 @@ export default function FiftyTwoProjects() {
               >
                 <div 
                   className="accordion-header"
-                  onClick={() => toggleWeek(project.id)}
+                  onClick={() => toggleProject(project.id)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      toggleWeek(project.id);
+                      toggleProject(project.id);
                     }
                   }}
                 >
                   <div className="accordion-header-left">
-                    <span className="week-number">WEEKS #{project.paddedWeek}</span>
+                    <span className="project-number">PROJECT #{project.paddedNumber}</span>
                     <h3 className="project-title">{project.title}</h3>
                   </div>
 
@@ -189,6 +189,21 @@ export default function FiftyTwoProjects() {
                       )}
 
                       {/* Key Engineering Specifications */}
+                      {project.sources && project.sources.length > 0 && (
+                        <div className="project-highlights">
+                          <h4>Original Authors & Learning Resources</h4>
+                          <ul>
+                            {project.sources.map((source) => (
+                              <li key={source.url}>
+                                <a href={source.url} target="_blank" rel="noopener noreferrer" className="project-link-btn">
+                                  {source.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
                       {project.specs && project.specs.length > 0 && (
                         <div className="project-specs-section">
                           <h4 className="project-subheading">Key Specifications & Operating Parameters</h4>
@@ -304,7 +319,7 @@ export default function FiftyTwoProjects() {
 
                         return (
                           <div className="project-gallery">
-                            <h4 className="project-gallery__heading">Photos & CFD Simulation Figures</h4>
+                            <h4 className="project-gallery__heading">Photos & Simulation Figures</h4>
                             <div className={`project-gallery__grid ${items.length === 1 ? 'single-photo' : 'multi-photo'}`}>
                               {items.map((item, imgIdx) => {
                                 const imgSrc = typeof item === 'string' ? item : item.src;

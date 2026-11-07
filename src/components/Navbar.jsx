@@ -21,7 +21,7 @@ export default function Navbar() {
     { to: '/', label: 'Home' },
     { to: '/projects', label: 'Projects' },
     { to: '/research', label: 'Research' },
-    { to: '/52-projects', label: '52 Challenges' },
+    { to: '/smaller-projects', label: 'Smaller Projects' },
     { to: '/resume', label: 'Resume' },
   ];
 
