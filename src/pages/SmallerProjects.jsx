@@ -188,6 +188,22 @@ export default function SmallerProjects() {
                         </div>
                       )}
 
+                      {project.notes && (
+                        <div className="project-details-box">
+                          <p>{project.notes}</p>
+                        </div>
+                      )}
+
+                      {project.documents?.length > 0 && (
+                        <div className="project-links">
+                          {project.documents.map((document) => (
+                            <a key={document.url} href={resolveAssetUrl(document.url)} target="_blank" rel="noopener noreferrer" className="project-link-btn">
+                              {document.title} →
+                            </a>
+                          ))}
+                        </div>
+                      )}
+
                       {/* Key Engineering Specifications */}
                       {project.sources && project.sources.length > 0 && (
                         <div className="project-highlights">

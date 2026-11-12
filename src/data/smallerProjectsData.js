@@ -42,31 +42,104 @@ export const customSmallerProjects = [
     ],
   },
   {
-    projectNumber: 7,
-    title: 'Heat Exchanger CFD in ANSYS Fluent',
-    subtitle: 'ENGR 360 • Heat Transfer Project',
-    status: 'Completed',
-    date: 'Fall 2024',
-    category: 'Computational Fluid Dynamics & Heat Transfer',
-    summary: 'I modeled a heat exchanger in ANSYS Fluent for ENGR 360, coupling flow in the inner and outer passages with heat transfer through the solid tube and shell.',
-    details: 'The saved Workbench project contains a steady, three-dimensional Fluent model with the energy equation and SST k–omega turbulence model enabled. Separate velocity inlets and pressure outlets define the two flow paths, and coupled thermal interfaces connect the fluid and solid regions. I monitored heat rates at all four inlet and outlet boundaries. The plot below was recreated from the saved monitor files through iteration 62; it documents the run history rather than a verified convergence or exchanger-efficiency result.',
-    specs: [
-      { label: 'Software', value: 'ANSYS Fluent 2024 R2' },
-      { label: 'Model', value: '3D, steady, pressure-based; energy enabled' },
-      { label: 'Turbulence model', value: 'SST k–omega' },
-      { label: 'Inner inlet', value: '0.01 m/s at 30 °C' },
-      { label: 'Outer inlet', value: '0.05 m/s at 25 °C' },
-      { label: 'Thermal interfaces', value: 'Coupled fluid–solid walls' },
+    "projectNumber": 7,
+    "title": "Shell-and-Tube Heat Exchanger: CFD & Mesh Studies",
+    "subtitle": "ENGR 360 • Team Heat Transfer Project",
+    "status": "Completed",
+    "date": "Fall 2024",
+    "category": "Computational Fluid Dynamics & Heat Transfer",
+    "summary": "I completed the ANSYS Fluent simulations and mesh iterations for our ENGR 360 team heat exchanger project. We developed a 9 m counterflow shell-and-tube design with 38 copper tubes, combining analytical sizing, SolidWorks modeling, and a simplified CFD study.",
+    "details": "My CFD work used a single hot-water tube surrounded by a cold-water annulus. I first investigated mesh settings on a 0.5 m model, then extended the simulation to the full 9 m length. I compared total-thickness and smooth-transition inflation, inspected mesh quality, and evaluated temperature, pressure, and flow fields. The team used the effectiveness–NTU method and MATLAB to size the full exchanger; those design calculations describe a different geometry from the single-tube CFD model.",
+    "specs": [
+      {
+        "label": "My contribution",
+        "value": "ANSYS Fluent simulation and mesh iterations"
+      },
+      {
+        "label": "Team design",
+        "value": "Counterflow; 38 tubes; 9 m length; 1.20 m shell diameter"
+      },
+      {
+        "label": "Tube dimensions",
+        "value": "50 mm inner diameter / 53.98 mm outer diameter"
+      },
+      {
+        "label": "Team design conditions",
+        "value": "Hot water: 28 kg/s at 90 °C; cold water: 27 kg/s at 34 °C"
+      },
+      {
+        "label": "Cold outlet design target",
+        "value": "60 °C"
+      },
+      {
+        "label": "CFD geometry",
+        "value": "Single tube and annulus; 0.5 m mesh study, then 9 m model"
+      },
+      {
+        "label": "Final reported mesh",
+        "value": "Two inflation layers on both flow regions; growth rate 1.2"
+      },
+      {
+        "label": "Team analytical heat duty",
+        "value": "2.934 MW; theoretical maximum heat rate 6.32 MW"
+      }
     ],
-    highlights: [
-      'Built a conjugate heat-transfer setup with two fluid zones and separate tube and shell solid zones.',
-      'Applied distinct inlet temperatures and velocities to the inner and outer flow passages.',
-      'Recorded inlet and outlet heat-rate histories to inspect how the solution evolved.',
+    "highlights": [
+      "Compared 13 initial mesh configurations, including total-thickness inflation, smooth-transition inflation, and an automatic-mesh control.",
+      "Evaluated orthogonal quality, skewness, and hot- and cold-stream temperature changes during the short-model study.",
+      "Extended the study to 9 m; the report identifies the two-layer inflation case as converged and notes license limits on larger meshes.",
+      "Produced temperature and static-pressure contours, velocity streamlines, and temperature-versus-position plots.",
+      "The final report gives a CFD hot-water outlet temperature of 358.73 K versus 338.02 K for the team’s analytical design. The simplified and full-design results require care when comparing performance."
     ],
-    tags: ['ANSYS Fluent', 'CFD', 'Heat Exchanger', 'Conjugate Heat Transfer', 'ENGR 360'],
-    gallery: [
-      { src: '/smaller-projects/heat-exchanger/heat-rate-history.png', title: 'Heat-rate monitor history recreated from the saved Fluent run (62 iterations)' },
+    "notes": "Team credits: Luke Krick — Fluent simulations and mesh iterations; Aubrey Wright — geometric calculations and heat exchanger analysis; Jack Durham — SolidWorks model, drawing, and ethical considerations; Katie Breneman and Rachel Phillips — report and presentation. The report and slides contain inconsistent CFD effectiveness values and mesh-count labels, so those figures are not presented here as verified results.",
+    "tags": [
+      "ANSYS Fluent",
+      "CFD",
+      "Mesh Refinement",
+      "Heat Exchanger",
+      "Conjugate Heat Transfer",
+      "ENGR 360"
     ],
+    "gallery": [
+      {
+        "src": "/smaller-projects/heat-exchanger/team-cad.webp",
+        "title": "Team shell-and-tube design — SolidWorks model by Jack Durham"
+      },
+      {
+        "src": "/smaller-projects/heat-exchanger/cfd-geometry.webp",
+        "title": "Simplified single-tube CFD geometry with the surrounding cold-water passage"
+      },
+      {
+        "src": "/smaller-projects/heat-exchanger/mesh-section.webp",
+        "title": "Cross-section of the CFD mesh with inflation layers near the tube walls"
+      },
+      {
+        "src": "/smaller-projects/heat-exchanger/mesh-detail.webp",
+        "title": "Surface mesh around the tube and shell inlet"
+      },
+      {
+        "src": "/smaller-projects/heat-exchanger/velocity-streamlines.webp",
+        "title": "Fluent velocity streamlines near the shell inlet"
+      },
+      {
+        "src": "/smaller-projects/heat-exchanger/temperature-contour.webp",
+        "title": "Temperature contour from the full-length, simplified CFD model"
+      },
+      {
+        "src": "/smaller-projects/heat-exchanger/pressure-contour.webp",
+        "title": "Static pressure contour along the simplified heat exchanger"
+      }
+    ],
+    "documents": [
+      {
+        "title": "Read the team report (PDF)",
+        "url": "/smaller-projects/heat-exchanger/team-report.pdf"
+      },
+      {
+        "title": "View the presentation (PDF)",
+        "url": "/smaller-projects/heat-exchanger/team-presentation.pdf"
+      }
+    ]
   },
   {
     projectNumber: 5,
